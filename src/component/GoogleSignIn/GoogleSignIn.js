@@ -1,25 +1,36 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useRecoilState } from "recoil";
+import axios from "axios";
+
 import { auth, signInWithGoogle, signOut } from "../../auth/firebase";
 import { firebaseUserState, tokenState } from "../../recoil/atom";
-import axios from "axios";
+import Button from "../common/Button/Button";
 
 export default function GoogleSignIn() {
   const [user, setUser] = useRecoilState(firebaseUserState);
   const [token, setToken] = useRecoilState(tokenState);
 
+  useEffect(() => {
+    setUser(localStorage.getItem("user"));
+    setToken(localStorage.getItem("token"));
+  }, []);
+
   const handleSignIn = useCallback(() => {
     signInWithGoogle();
 
-    auth.onAuthStateChanged(async (userData) => {
-      if (userData) {
+    auth.onAuthStateChanged(async (data) => {
+      if (data) {
         const response = await auth.currentUser.getIdToken();
+        const userData = JSON.parse(JSON.stringify(data));
 
         setToken(response);
-        setUser(JSON.parse(JSON.stringify(userData)));
+        setUser(userData["uid"]);
+
+        localStorage.setItem("token", response);
+        localStorage.setItem("user", userData["uid"]);
 
         const firebaseUserData = {
-          user: JSON.parse(JSON.stringify(userData)),
+          user: userData,
           token: response,
         };
 
@@ -28,7 +39,7 @@ export default function GoogleSignIn() {
           firebaseUserData,
           {
             headers: {
-              Authorization: `Bearer ${response}`,
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           }
         );
@@ -41,14 +52,17 @@ export default function GoogleSignIn() {
 
     setUser(null);
     setToken(null);
+
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
   }, [user, token]);
 
   return (
     <div>
-      {!user ? (
-        <button onClick={handleSignIn}>Sign In</button>
+      {!localStorage.getItem("token") ? (
+        <Button onClick={handleSignIn}>Sign In</Button>
       ) : (
-        <button onClick={handleSignOut}>Sing Out</button>
+        <Button onClick={handleSignOut}>Sing Out</Button>
       )}
     </div>
   );

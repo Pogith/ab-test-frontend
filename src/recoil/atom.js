@@ -9,3 +9,8 @@ export const tokenState = atom({
   key: "firebaseToken",
   default: null,
 });
+
+export const isShowingModalState = atom({
+  key: "isShowingModal",
+  default: false,
+});
