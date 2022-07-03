@@ -1,0 +1,22 @@
+.modal {
+  &__background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.8);
+  }
+
+  &__box {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    height: 400px;
+    background-color: aqua;
+    border-radius: 15px;
+    transform: translate(-50%, -50%);
+    box-shadow: 5px 5px 15px 5px #000000;
+  }
+}
