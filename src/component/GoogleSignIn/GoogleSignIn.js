@@ -1,21 +1,23 @@
-import React, { useCallback, useEffect } from "react";
-import { useRecoilState } from "recoil";
+import React, { useEffect } from "react";
+import { useSetRecoilState } from "recoil";
 import axios from "axios";
 
 import { auth, signInWithGoogle, signOut } from "../../auth/firebase";
 import { firebaseUserState, tokenState } from "../../recoil/atom";
 import Button from "../common/Button/Button";
+import { useNavigate } from "react-router-dom";
 
 export default function GoogleSignIn() {
-  const [user, setUser] = useRecoilState(firebaseUserState);
-  const [token, setToken] = useRecoilState(tokenState);
+  const navigate = useNavigate();
+  const setUser = useSetRecoilState(firebaseUserState);
+  const setToken = useSetRecoilState(tokenState);
 
   useEffect(() => {
     setUser(localStorage.getItem("user"));
     setToken(localStorage.getItem("token"));
   }, []);
 
-  const handleSignIn = useCallback(() => {
+  const handleSignIn = () => {
     signInWithGoogle();
 
     auth.onAuthStateChanged(async (data) => {
@@ -34,20 +36,23 @@ export default function GoogleSignIn() {
           token: response,
         };
 
-        await axios.post(
-          process.env.REACT_APP_SERVER_URL + "/auth/login",
-          firebaseUserData,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
+        axios
+          .post(
+            process.env.REACT_APP_SERVER_URL + "/auth/login",
+            firebaseUserData,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            }
+          )
+          .then(() => navigate("/"))
+          .catch((err) => console.error("Error", err));
       }
     });
-  }, [user, token]);
+  };
 
-  const handleSignOut = useCallback(() => {
+  const handleSignOut = () => {
     signOut();
 
     setUser(null);
@@ -55,7 +60,9 @@ export default function GoogleSignIn() {
 
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-  }, [user, token]);
+
+    navigate("/");
+  };
 
   return (
     <div>
