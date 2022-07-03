@@ -12,11 +12,11 @@
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: aqua;
-    border-radius: 15px;
-    box-shadow: 5px 5px 15px 5px #000000;
     width: 400px;
     height: 400px;
+    background-color: aqua;
+    border-radius: 15px;
+    transform: translate(-50%, -50%);
+    box-shadow: 5px 5px 15px 5px #000000;
   }
 }

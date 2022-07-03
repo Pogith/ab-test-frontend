@@ -1,25 +1,23 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
-import { isShowingModalState } from "../../recoil/atom";
-import Button from "../common/Button/Button";
+import { Link } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+
+import { firebaseUserState } from "../../recoil/atom";
 
 export default function Navbar() {
-  const navigate = useNavigate();
-  const setIsCloseModal = useSetRecoilState(isShowingModalState);
-
-  const handleRegisterProjectButtonClick = () => {
-    setIsCloseModal(true);
-    navigate("/project");
-  };
+  const userUid = useRecoilValue(firebaseUserState);
 
   return (
     <div>
-      <Button onClick={handleRegisterProjectButtonClick}>
-        A/B test 등록하기
-      </Button>
-      <Button>나의 테스트 목록</Button>
-      <Button>Home</Button>
+      <div>
+        <Link to="/">Home</Link>
+      </div>
+      <div>
+        <Link to="/project">A/B test 등록</Link>
+      </div>
+      <div>
+        <Link to={`/user/${userUid}`}>나의 테스트 목록</Link>
+      </div>
     </div>
   );
 }

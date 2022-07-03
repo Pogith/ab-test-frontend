@@ -2,15 +2,16 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 
-import { isShowingModalState, tokenState } from "../../recoil/atom";
+import { tokenState } from "../../recoil/atom";
 import Home from "../Home/Home";
 import Navbar from "../Navbar/Navbar";
-import RegisterProjectModal from "../RegisterProjectModal/RegisterProjectModal";
+import RegisterProjectPage from "../RegisterProjectPage/RegisterProjectPage";
 import Topbar from "../Topbar/Topbar";
+import UserPage from "../UserPage/UserPage";
+import UserProjectPage from "../UserProjectPage/UserProjectPage";
 
 export default function Layout() {
   const token = useRecoilValue(tokenState);
-  const isShowingModal = useRecoilValue(isShowingModalState);
 
   return (
     <div>
@@ -18,9 +19,9 @@ export default function Layout() {
       {token ? <Navbar /> : "로그인 하세요"}
       <Routes>
         <Route path="/" element={<Home />} />
-        {isShowingModal && (
-          <Route path="/project" element={<RegisterProjectModal />} />
-        )}
+        <Route path="/project" element={<RegisterProjectPage />} />
+        <Route path="/user/:uid" element={<UserPage />} />
+        <Route path="/user/project/:projectId" element={<UserProjectPage />} />
       </Routes>
     </div>
   );
