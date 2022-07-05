@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import { auth, signInWithGoogle, signOut } from "../../auth/firebase";
 import { firebaseUserState, tokenState } from "../../recoil/atom";
-import Button from "../common/Button/Button";
-import { useNavigate } from "react-router-dom";
 
 export default function GoogleSignIn() {
   const navigate = useNavigate();
@@ -67,9 +66,9 @@ export default function GoogleSignIn() {
   return (
     <div>
       {!localStorage.getItem("token") ? (
-        <Button onClick={handleSignIn}>Sign In</Button>
+        <button onClick={handleSignIn}>Sign In</button>
       ) : (
-        <Button onClick={handleSignOut}>Sing Out</Button>
+        <button onClick={handleSignOut}>Sing Out</button>
       )}
     </div>
   );

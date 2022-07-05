@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function UserPage() {
+  const navigate = useNavigate();
   const [projects, setProjects] = useState(null);
   const userUid = localStorage.getItem("user");
 
@@ -35,9 +36,11 @@ export default function UserPage() {
             <Link to={`/user/project/${projectData._id}`}>
               <h1>{projectData.projectName}</h1>
             </Link>
+            <button>결과보기</button>
           </div>
         );
       })}
+      <button onClick={() => navigate("/")}>뒤로가기</button>
     </div>
   );
 }

@@ -3,18 +3,18 @@ import classNames from "classnames/bind";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 
-import styles from "./Modal.module.scss";
 import { isShowingModalState } from "../../../recoil/atom";
+import styles from "./Modal.module.scss";
 
 const cx = classNames.bind(styles);
 
-export default function Modal({ message }) {
+export default function Modal({ message, redirectLink }) {
   const navigate = useNavigate();
   const setIsCloseModal = useSetRecoilState(isShowingModalState);
 
   const handleModalClose = () => {
     setIsCloseModal(false);
-    navigate("/");
+    navigate(redirectLink);
   };
 
   return (
