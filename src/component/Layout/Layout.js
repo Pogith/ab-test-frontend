@@ -6,6 +6,7 @@ import { tokenState } from "../../recoil/atom";
 import Home from "../Home/Home";
 import Navbar from "../Navbar/Navbar";
 import RegisterProjectPage from "../RegisterProjectPage/RegisterProjectPage";
+import ScriptKeyModal from "../ScriptKeyModal/ScriptKeyModal";
 import Topbar from "../Topbar/Topbar";
 import UserPage from "../UserPage/UserPage";
 import UserProjectPage from "../UserProjectPage/UserProjectPage";
@@ -22,6 +23,7 @@ export default function Layout() {
         <Route path="/project" element={<RegisterProjectPage />} />
         <Route path="/user/:uid" element={<UserPage />} />
         <Route path="/user/project/:projectId" element={<UserProjectPage />} />
+        <Route path="/user/project/:projectId/:uniqId" element={<ScriptKeyModal />} />
       </Routes>
     </div>
   );
