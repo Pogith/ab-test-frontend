@@ -47,6 +47,7 @@ export default function RegisterProjectPage() {
             <button onClick={handleProjectRegister}>등록하기</button>
           </div>
         }
+        redirectLink="/"
       />
     </ModalPortal>
   );
