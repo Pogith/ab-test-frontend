@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import axios from "axios";
 
@@ -68,6 +68,11 @@ export default function UserProjectPage() {
         return (
           <div key={testData._id}>
             <a href={testData.url}>{testData.url}</a>
+            <p>
+              <Link to={`/user/project/${params.projectId}/${testData.uniqId}`}>
+                script
+              </Link>
+            </p>
           </div>
         );
       })}
