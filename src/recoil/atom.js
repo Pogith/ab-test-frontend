@@ -14,3 +14,13 @@ export const isShowingModalState = atom({
   key: "isShowingModal",
   default: false,
 });
+
+export const testResultState = atom({
+  key: "testResult",
+  default: null,
+});
+
+export const visitResultState = atom({
+  key: "visitResult",
+  default: null,
+});
