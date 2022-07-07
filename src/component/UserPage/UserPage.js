@@ -36,7 +36,11 @@ export default function UserPage() {
             <Link to={`/user/project/${projectData._id}`}>
               <h1>{projectData.projectName}</h1>
             </Link>
-            <button>결과보기</button>
+            <button>
+              <Link to={`/user/project/result/${projectData._id}`}>
+                결과보기
+              </Link>
+            </button>
           </div>
         );
       })}
