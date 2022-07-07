@@ -14,6 +14,8 @@ export default function RegisterProjectPage() {
   const [projectName, setProjectName] = useState("");
 
   const handleProjectRegister = () => {
+    if (!projectName) return alert("프로젝트 이름을 입력해주세요!");
+
     axios
       .post(
         process.env.REACT_APP_SERVER_URL + `/users/${userUid}/projects`,
