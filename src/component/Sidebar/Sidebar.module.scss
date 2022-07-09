@@ -1,0 +1,32 @@
+.sidebar {
+  position: "fixed";
+  top: 0;
+  left: 0;
+  width: 320px;
+  height: 100vh;
+  background-color: rgb(48, 44, 44);
+
+  &__menu {
+    position: relative;
+    padding-top: 4rem;
+
+    &__link {
+      text-decoration: none;
+    }
+
+    &__item {
+      display: flex;
+      align-items: center;
+      place-content: flex-start center;
+      padding: 1rem 2rem;
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: white;
+      transition: color 0.3s ease-in-out;
+    }
+
+    &__item__logo {
+      margin-right: 5px;
+    }
+  }
+}
