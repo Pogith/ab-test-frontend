@@ -2,10 +2,14 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import axios from "axios";
+import classNames from "classnames/bind";
 
 import { firebaseUserState, isShowingModalState } from "../../recoil/atom";
 import ModalPortal from "../common/ModalPortal/ModalPortal";
 import Modal from "../common/Modal/Modal";
+import styles from "./RegisterProjectPage.module.scss";
+
+const cx = classNames.bind(styles);
 
 export default function RegisterProjectPage() {
   const navigate = useNavigate();
@@ -38,16 +42,26 @@ export default function RegisterProjectPage() {
     <ModalPortal>
       <Modal
         message={
-          <div>
-            <h1>프로젝트 이름</h1>
-            <input
-              type="text"
-              value={projectName}
-              onChange={(e) => setProjectName(e.target.value)}
-              placeholder="ex) Button color difference"
-            />
-            <button onClick={handleProjectRegister}>등록하기</button>
-          </div>
+          <>
+            <div className={cx("register__title")}>
+              <h1>Project Name</h1>
+              <div>
+                <input
+                  className={cx("register__input")}
+                  type="text"
+                  value={projectName}
+                  onChange={(e) => setProjectName(e.target.value)}
+                  placeholder="ex) Button color difference"
+                />
+              </div>
+            </div>
+            <button
+              className={cx("register__button")}
+              onClick={handleProjectRegister}
+            >
+              Register
+            </button>
+          </>
         }
         redirectLink="/"
       />
