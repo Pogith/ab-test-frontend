@@ -11,7 +11,9 @@
     padding-top: 4rem;
 
     &__link {
+      color: white;
       text-decoration: none;
+      position: relative;
     }
 
     &__item {
@@ -21,12 +23,17 @@
       padding: 1rem 2rem;
       font-size: 1.25rem;
       font-weight: 900;
-      color: white;
-      transition: color 0.3s ease-in-out;
-    }
+      transition: background-color 0.3s ease-in-out;
 
-    &__item__logo {
-      margin-right: 5px;
+      &:hover {
+        color: lighten(whitesmoke, 10%);
+        text-decoration: underline;
+        background-color: rgb(81, 81, 179);
+      }
+
+      &__logo {
+        margin-right: 5px;
+      }
     }
   }
 }

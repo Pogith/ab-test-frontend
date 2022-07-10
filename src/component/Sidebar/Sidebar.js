@@ -21,7 +21,7 @@ export default function Sidebar() {
       section: "",
     },
     {
-      text: "A/B test 등록",
+      text: "Test Register",
       path: "/project",
       logo: "AB",
       section: "project",
