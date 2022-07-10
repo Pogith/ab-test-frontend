@@ -2,9 +2,13 @@ import React, { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import classNames from "classnames/bind";
 
 import { auth, signInWithGoogle, signOut } from "../../auth/firebase";
 import { firebaseUserState, tokenState } from "../../recoil/atom";
+import styles from "./GoogleSignIn.module.scss";
+
+const cx = classNames.bind(styles);
 
 export default function GoogleSignIn() {
   const navigate = useNavigate();
@@ -66,9 +70,13 @@ export default function GoogleSignIn() {
   return (
     <div>
       {!localStorage.getItem("token") ? (
-        <button onClick={handleSignIn}>Sign In</button>
+        <button className={cx("login_button")} onClick={handleSignIn}>
+          Sign In
+        </button>
       ) : (
-        <button onClick={handleSignOut}>Sing Out</button>
+        <button className={cx("login_button")} onClick={handleSignOut}>
+          Sing Out
+        </button>
       )}
     </div>
   );

@@ -11,8 +11,8 @@ export default function PieChart({ resultData }) {
 
   useEffect(() => {
     const circle = {
-      width: 500,
-      height: 500,
+      width: 300,
+      height: 300,
     };
     const radius = Math.min(circle.width, circle.height) / 2;
 
@@ -20,7 +20,6 @@ export default function PieChart({ resultData }) {
       .select(svgRef.current)
       .attr("width", circle.width)
       .attr("height", circle.height)
-      .style("border", "1px solid black");
 
     const g = svg
       .append("g")
@@ -30,7 +29,6 @@ export default function PieChart({ resultData }) {
       );
 
     const color = d3.scaleOrdinal().range(d3.schemeSet2);
-
     const data = d3.pie().value((d) => d.count)(resultData);
     const arc = d3.arc().innerRadius(0).outerRadius(radius);
 
@@ -59,12 +57,12 @@ export default function PieChart({ resultData }) {
 
         tooltip
           .style("visibility", "visible")
-          .text(`${d.data.name}: ${(d.data.count / countSum).toFixed(2) * 100}%`);
+          .text(`${d.data.name}: ${Math.round((d.data.count / countSum) * 100)}%`);
       })
       .on("mousemove", (e, d) => {
         tooltip
-          .style("top", e.pageY - 50 + "px")
-          .style("left", e.pageX - 50 + "px");
+          .style("top", e.pageY - 30 + "px")
+          .style("left", e.pageX - 30 + "px");
       })
       .on("mouseout", (e, d) => {
         select(e.currentTarget).attr("fill", color(d.value));

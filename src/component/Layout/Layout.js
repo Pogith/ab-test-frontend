@@ -12,7 +12,6 @@ import TestResultPage from "../TestResultPage/TestResultPage";
 import Topbar from "../Topbar/Topbar";
 import UserPage from "../UserPage/UserPage";
 import UserProjectPage from "../UserProjectPage/UserProjectPage";
-
 import styles from "./Layout.module.scss";
 
 const cx = classNames.bind(styles);

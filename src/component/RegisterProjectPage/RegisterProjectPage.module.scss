@@ -1,0 +1,33 @@
+$text-color: rgb(33, 11, 131);
+
+.register {
+  &__input {
+    width: 400px;
+    height: 60px;
+    margin-top: 10px;
+    font-size: 30px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 3px solid black;
+  }
+
+  &__button {
+    padding: 15px 30px;
+    margin-top: 50px;
+    margin-right: 20px;
+    font-size: 20px;
+    color: $text-color;
+    cursor: pointer;
+    background-color: white;
+    border: 3px solid $text-color;
+    border-radius: 10px;
+    box-shadow: 2px 4px 6px -1px rgba(0, 0, 0, 0.5);
+    transition: 0.5s;
+
+    &:hover {
+      border: 3px solid lightgreen;
+      color: darken(yellow, 30%);
+    }
+  }
+}

@@ -1,3 +1,5 @@
+$text-color: rgb(115, 15, 15);
+
 .modal {
   &__background {
     position: fixed;
@@ -12,11 +14,32 @@
     position: fixed;
     top: 50%;
     left: 50%;
-    width: 400px;
+    width: 600px;
     height: 400px;
-    background-color: aqua;
+    color: black;
+    text-align: center;
+    background-color: rgb(254, 255, 255);
     border-radius: 15px;
     transform: translate(-50%, -50%);
     box-shadow: 5px 5px 15px 5px #000000;
+  }
+
+  &__button {
+    padding: 15px 40px;
+    margin-top: 20px;
+    margin-right: 20px;
+    font-size: 20px;
+    color: $text-color;
+    cursor: pointer;
+    background-color: white;
+    border: 3px solid $text-color;
+    border-radius: 10px;
+    box-shadow: 2px 4px 6px -1px rgba(0, 0, 0, 0.5);
+    transition: 0.5s;
+  }
+
+  &__button:hover {
+    border: 3px solid rgb(240, 53, 56);
+    color: darken($text-color, 30%);
   }
 }

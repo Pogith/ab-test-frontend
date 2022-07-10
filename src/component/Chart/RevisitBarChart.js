@@ -16,9 +16,8 @@ export default function RevisitBarChart() {
 
     const svg = d3
       .select(svgRef.current)
-      .attr("width", chartWidth + margin.left + margin.right)
+      .attr("width", chartWidth)
       .attr("height", chartHeight + margin.top + margin.bottom)
-      .style("border", "1px solid black");
 
     const xScale = d3
       .scaleBand()
@@ -75,7 +74,7 @@ export default function RevisitBarChart() {
       })
       .on("mousemove", (e) => {
         tooltip
-          .style("top", e.pageY - 20 + "px")
+          .style("top", e.pageY - 30 + "px")
           .style("left", e.pageX - 10 + "px");
       })
       .on("mouseout", (e) => {

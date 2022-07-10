@@ -15,9 +15,8 @@ export default function BarChart() {
     const chartHeight = 400 - margin.top - margin.bottom;
     const svg = d3
       .select(svgRef.current)
-      .attr("width", chartWidth + margin.left + margin.right)
+      .attr("width", chartWidth)
       .attr("height", chartHeight + margin.top + margin.bottom)
-      .style("border", "1px solid black");
 
     const xScale = d3
       .scaleBand()

@@ -20,8 +20,10 @@ export default function Modal({ message, redirectLink }) {
   return (
     <div className={cx("modal__background")} onClick={handleModalClose}>
       <div className={cx("modal__box")} onClick={(e) => e.stopPropagation()}>
-        <div>{message}</div>
-        <button onClick={handleModalClose}>취소</button>
+        {message}
+        <button className={cx("modal__button")} onClick={handleModalClose}>
+          Cancel
+        </button>
       </div>
     </div>
   );

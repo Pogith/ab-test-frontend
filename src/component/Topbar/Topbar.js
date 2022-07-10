@@ -13,7 +13,9 @@ export default function Topbar() {
         <div className={cx("topbar__left")}>
           <div className={cx("topbar__logo")}>A/B test</div>
         </div>
-        <div className={cx("topbar__right")}><GoogleSignIn /></div>
+        <div className={cx("topbar__right")}>
+          <GoogleSignIn />
+        </div>
       </div>
     </div>
   );
