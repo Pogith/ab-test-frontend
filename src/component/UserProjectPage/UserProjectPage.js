@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import axios from "axios";
+import classNames from "classnames/bind";
 
 import { firebaseUserState } from "../../recoil/atom";
+import styles from "./UserProjectPage.module.scss";
+
+const cx = classNames.bind(styles);
 
 export default function UserProjectPage() {
+  const navigate = useNavigate();
   const params = useParams();
   const userUid = useRecoilValue(firebaseUserState);
   const [testUrl, setTestUrl] = useState("");
@@ -57,26 +62,46 @@ export default function UserProjectPage() {
 
   return (
     <div>
-      <h1>{params.projectname}</h1>
+      <h1>Test</h1>
+      {testLists?.data.map((testData) => {
+        return (
+          <div className={cx("test__item")} key={testData._id}>
+            <a className={cx("test__item__url")} href={testData.url}>
+              {testData.url}
+            </a>
+            <div className={cx("test__item__content")}>
+              <Link
+                className={cx("test__item__script")}
+                to={`/user/project/${params.projectId}/${testData.uniqId}`}
+              >
+                script
+              </Link>
+            </div>
+            <div>screen shot</div>
+          </div>
+        );
+      })}
       <input
+        className={cx("test__input")}
         type="text"
         value={testUrl}
         onChange={(e) => setTestUrl(e.target.value)}
         placeholder="ex) https://www.abtest.com"
       />
-      {testLists?.data.map((testData) => {
-        return (
-          <div key={testData._id}>
-            <a href={testData.url}>{testData.url}</a>
-            <p>
-              <Link to={`/user/project/${params.projectId}/${testData.uniqId}`}>
-                script
-              </Link>
-            </p>
-          </div>
-        );
-      })}
-      <button onClick={handleRegisterTestUrlButtonClick}>추가하기</button>
+      <button
+        className={cx("test__button")}
+        onClick={handleRegisterTestUrlButtonClick}
+      >
+        +
+      </button>
+      <div>
+        <button
+          className={cx("test__backbutton")}
+          onClick={() => navigate(`/user/${userUid}`)}
+        >
+          Back
+        </button>
+      </div>
     </div>
   );
 }
