@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import classNames from "classnames/bind";
+
+import styles from "./UserPage.module.scss";
+
+const cx = classNames.bind(styles);
 
 export default function UserPage() {
   const navigate = useNavigate();
@@ -29,22 +34,34 @@ export default function UserPage() {
   }, []);
 
   return (
-    <div>
-      {projects?.data.map((projectData) => {
+    <div className={cx("project")}>
+      {projects?.data.map((projectData, index) => {
         return (
-          <div key={projectData._id}>
-            <Link to={`/user/project/${projectData._id}`}>
+          <div className={cx("project__list")} key={projectData._id}>
+            <h1>Project No.{index + 1}</h1>
+            <Link
+              className={cx("project__list__link")}
+              to={`/user/project/${projectData._id}`}
+            >
               <h1>{projectData.projectName}</h1>
             </Link>
-            <button>
-              <Link to={`/user/project/result/${projectData._id}`}>
-                결과보기
+            <button className={cx("project__button")}>
+              <Link
+                className={cx("project__list__link")}
+                to={`/user/project/result/${projectData._id}`}
+              >
+                View Results
               </Link>
             </button>
           </div>
         );
       })}
-      <button onClick={() => navigate("/")}>뒤로가기</button>
+      <button
+        className={cx("project__backbutton")}
+        onClick={() => navigate("/")}
+      >
+        Back
+      </button>
     </div>
   );
 }
