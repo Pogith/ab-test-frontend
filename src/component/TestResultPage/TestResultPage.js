@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import axios from "axios";
+import classNames from "classnames/bind";
 
 import {
   firebaseUserState,
@@ -11,6 +12,9 @@ import {
 import BarChart from "../Chart/BarChart";
 import RevisitBarChart from "../Chart/RevisitBarChart";
 import PieChart from "../Chart/PieChart";
+import styles from "./TestResultPage.module.scss";
+
+const cx = classNames.bind(styles);
 
 export default function TestResultPage() {
   const params = useParams();
@@ -72,7 +76,7 @@ export default function TestResultPage() {
   const agentResults = Object.values(visitAgent).map((data) => data);
 
   return (
-    <div>
+    <div className={cx("chart__container")}>
       {testResults && <BarChart />}
       {testResults && <RevisitBarChart />}
       {visitResults && <PieChart resultData={browserResults} />}
