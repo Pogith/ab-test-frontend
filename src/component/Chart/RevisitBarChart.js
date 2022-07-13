@@ -66,7 +66,7 @@ export default function RevisitBarChart({ resultData }) {
       .attr("x", (d, i) => xScale(i))
       .attr("width", xScale.bandwidth())
       .attr("y", (d) => yScale(0))
-      .attr("height", (d) => yScale(d.revisitCount) - yScale(0))
+      .attr("height", (d) => yScale(0) - chartHeight)
       .on("mouseover", (e, d) => {
         select(e.currentTarget).attr("fill", "red");
 
