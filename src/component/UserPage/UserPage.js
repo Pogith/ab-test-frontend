@@ -10,6 +10,7 @@ const cx = classNames.bind(styles);
 export default function UserPage() {
   const navigate = useNavigate();
   const [projects, setProjects] = useState(null);
+  const [isRendering, setIsRendering] = useState(false);
   const userUid = localStorage.getItem("user");
 
   useEffect(() => {
@@ -31,7 +32,22 @@ export default function UserPage() {
     };
 
     fetchProjectsData();
-  }, []);
+  }, [isRendering]);
+
+  const handleProjectDeleteButtonClick = (projectId) => {
+    axios
+      .delete(
+        process.env.REACT_APP_SERVER_URL +
+          `/users/${userUid}/projects/${projectId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
+      .then(() => setIsRendering(!isRendering))
+      .catch((err) => console.error("Error", err));
+  };
 
   return (
     <div className={cx("project")}>
@@ -52,6 +68,12 @@ export default function UserPage() {
               >
                 View Results
               </Link>
+            </button>
+            <button
+              className={cx("project__deletebutton")}
+              onClick={() => handleProjectDeleteButtonClick(projectData._id)}
+            >
+              delete
             </button>
           </div>
         );

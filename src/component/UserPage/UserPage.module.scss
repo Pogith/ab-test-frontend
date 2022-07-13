@@ -1,6 +1,35 @@
 $color: black;
 
+@mixin button-decoration(
+  $margin,
+  $padding,
+  $font-size,
+  $border-radius,
+  $color,
+  $background-color
+) {
+  margin: $margin;
+  padding: $padding;
+  font-size: $font-size;
+  cursor: pointer;
+  border: none;
+  border-radius: $border-radius;
+  transition: background-color 0.5s ease-in-out;
+
+  &:hover {
+    color: $color;
+    background-color: $background-color;
+  }
+}
+
 .project {
+  &__loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
   &__list {
     display: flex;
     align-items: center;
@@ -10,6 +39,12 @@ $color: black;
     border: 2px solid rgb(80, 75, 75);
     border-radius: 10px;
     box-shadow: 5px 5px 5px -1px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease-in-out;
+    transform: translate(0, 0);
+
+    &:hover {
+      transform: translate(-10px, -20px);
+    }
 
     &__link {
       padding: 30px;
@@ -24,32 +59,15 @@ $color: black;
   }
 
   &__button {
-    width: 30%;
-    height: 100%;
-    margin: 15px;
-    background-color: rgb(255, 255, 255);
-    border: 3px solid $color;
-    border-radius: 10px;
-    box-shadow: 2px 4px 6px -1px rgba(0, 0, 0, 0.5);
-    transition: background-color 0.5s ease-in-out;
+    @include button-decoration(10px, 10px 30px, 20px, 20px, white, blue);
+  }
 
-    &:hover {
-      background-color: $color;
-    }
+  &__deletebutton {
+    color: red;
+    @include button-decoration(10px, 10px 30px, 20px, 20px, white, red);
   }
 
   &__backbutton {
-    margin: 10px 30px;
-    padding: 10px 50px;
-    font-size: 20px;
-    cursor: pointer;
-    border: none;
-    border-radius: 20px;
-    transition: background-color 0.5s ease-in-out;
-
-    &:hover {
-      color: white;
-      background-color: gray;
-    }
+    @include button-decoration(10px 30px, 10px 50px, 20px, 20px, white, gray);
   }
 }
