@@ -14,6 +14,7 @@ import Topbar from "../Topbar/Topbar";
 import UserPage from "../UserPage/UserPage";
 import UserProjectPage from "../UserProjectPage/UserProjectPage";
 import styles from "./Layout.module.scss";
+import NotFound from "../NotFound/NotFound";
 
 const cx = classNames.bind(styles);
 
@@ -54,6 +55,7 @@ export default function Layout() {
               path="/user/project/:projectId/:uniqId/screenshot"
               element={<ScreenShot />}
             />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
       </div>
