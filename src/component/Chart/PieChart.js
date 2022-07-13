@@ -13,13 +13,13 @@ export default function PieChart({ resultData }) {
     const circle = {
       width: 300,
       height: 300,
+      thickness: 100,
     };
     const radius = Math.min(circle.width, circle.height) / 2;
-
     const svg = d3
       .select(svgRef.current)
       .attr("width", circle.width)
-      .attr("height", circle.height)
+      .attr("height", circle.height);
 
     const g = svg
       .append("g")
@@ -30,7 +30,10 @@ export default function PieChart({ resultData }) {
 
     const color = d3.scaleOrdinal().range(d3.schemeSet2);
     const data = d3.pie().value((d) => d.count)(resultData);
-    const arc = d3.arc().innerRadius(0).outerRadius(radius);
+    const arc = d3
+      .arc()
+      .innerRadius(radius - circle.thickness)
+      .outerRadius(radius);
 
     const arcs = g
       .selectAll("arc")
@@ -57,7 +60,9 @@ export default function PieChart({ resultData }) {
 
         tooltip
           .style("visibility", "visible")
-          .text(`${d.data.name}: ${Math.round((d.data.count / countSum) * 100)}%`);
+          .text(
+            `${d.data.name}: ${Math.round((d.data.count / countSum) * 100)}%`
+          );
       })
       .on("mousemove", (e, d) => {
         tooltip

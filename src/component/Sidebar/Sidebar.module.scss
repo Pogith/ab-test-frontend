@@ -2,7 +2,7 @@
   position: "fixed";
   top: 0;
   left: 0;
-  width: 320px;
+  width: 305px;
   height: 100vh;
   background-color: rgb(48, 44, 44);
 
@@ -32,7 +32,9 @@
       }
 
       &__logo {
-        margin-right: 5px;
+        margin-top: 5px;
+        margin-right: 10px;
+        font-size: 30px;
       }
     }
   }

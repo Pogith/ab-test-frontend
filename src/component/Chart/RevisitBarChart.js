@@ -1,13 +1,9 @@
 import React, { useEffect, useRef } from "react";
-import { useRecoilValue } from "recoil";
 import * as d3 from "d3";
 import { select } from "d3";
 
-import { testResultState } from "../../recoil/atom";
-
-export default function RevisitBarChart() {
+export default function RevisitBarChart({ resultData }) {
   const svgRef = useRef();
-  const resultData = useRecoilValue(testResultState);
 
   useEffect(() => {
     const margin = { top: 50, right: 30, bottom: 30, left: 60 };
@@ -16,13 +12,14 @@ export default function RevisitBarChart() {
 
     const svg = d3
       .select(svgRef.current)
-      .attr("width", chartWidth)
+      .attr("width", chartWidth + margin.right + margin.left)
       .attr("height", chartHeight + margin.top + margin.bottom)
+      .style("border", "1px solid black");
 
     const xScale = d3
       .scaleBand()
       .domain(d3.range(resultData.length))
-      .range([margin.left, chartWidth - margin.right])
+      .range([0, chartWidth + margin.right + margin.left + margin.top])
       .padding(0.8);
 
     svg
@@ -31,11 +28,11 @@ export default function RevisitBarChart() {
       .call(
         d3
           .axisBottom(xScale)
-          .tickFormat((index) => resultData[index].url)
+          .tickFormat((i) => resultData[i].url)
           .tickSizeOuter(0)
       );
 
-    const yMaxValue = d3.max(resultData, (data) => data.revisitCount);
+    const yMaxValue = d3.max(resultData, (d) => d.revisitCount);
     const yScale = d3
       .scaleLinear()
       .domain([0, yMaxValue])
@@ -51,8 +48,11 @@ export default function RevisitBarChart() {
       .append("div")
       .style("visibility", "hidden")
       .style("position", "absolute")
+      .style("width", "20px")
+      .style("height", "20px")
+      .style("text-align", "center")
       .style("color", "white")
-      .style("border-radius", "5px")
+      .style("border-radius", "10px")
       .style("background-color", "black");
 
     const defaultBarColor = "blue";
@@ -63,10 +63,10 @@ export default function RevisitBarChart() {
       .selectAll("rect")
       .data(resultData)
       .join("rect")
-      .attr("x", (data, index) => xScale(index))
-      .attr("y", (data) => yScale(data.revisitCount))
-      .attr("height", (data) => yScale(0) - yScale(data.revisitCount))
+      .attr("x", (d, i) => xScale(i))
       .attr("width", xScale.bandwidth())
+      .attr("y", (d) => yScale(0))
+      .attr("height", (d) => yScale(d.revisitCount) - yScale(0))
       .on("mouseover", (e, d) => {
         select(e.currentTarget).attr("fill", "red");
 
@@ -74,7 +74,7 @@ export default function RevisitBarChart() {
       })
       .on("mousemove", (e) => {
         tooltip
-          .style("top", e.pageY - 30 + "px")
+          .style("top", e.pageY - 25 + "px")
           .style("left", e.pageX - 10 + "px");
       })
       .on("mouseout", (e) => {
@@ -82,6 +82,14 @@ export default function RevisitBarChart() {
 
         tooltip.style("visibility", "hidden");
       });
+
+    svg
+      .selectAll("rect")
+      .transition()
+      .duration(800)
+      .attr("y", (d) => yScale(d.revisitCount))
+      .attr("height", (d) => yScale(0) - yScale(d.revisitCount))
+      .delay((d, i) => i * 100);
 
     svg
       .append("text")

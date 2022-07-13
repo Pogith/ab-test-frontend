@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import classNames from "classnames/bind";
+import { FcHome, FcAddDatabase } from "react-icons/fc";
+import { VscAccount } from "react-icons/vsc";
 
 import { firebaseUserState } from "../../recoil/atom";
 import styles from "./Sidebar.module.scss";
@@ -17,19 +19,19 @@ export default function Sidebar() {
     {
       text: "Home",
       path: "/",
-      logo: "Home",
+      logo: <FcHome />,
       section: "",
     },
     {
       text: "Test Register",
       path: "/project",
-      logo: "AB",
+      logo: <FcAddDatabase />,
       section: "project",
     },
     {
       text: "My Page",
       path: `/user/${userUid}`,
-      logo: "My",
+      logo: <VscAccount />,
       section: "user",
     },
   ];
@@ -46,21 +48,33 @@ export default function Sidebar() {
   return (
     <div className={cx("sidebar")}>
       <div className={cx("sidebar__menu")}>
-        {sidebarItems.map((item, index) => (
-          <Link
-            className={cx("sidebar__menu__link")}
-            to={item.path}
-            key={index}
-          >
-            <div
-              className={cx("sidebar__menu__item")}
-              style={{ color: `${activeIndex === index ? "red" : "white"}` }}
-            >
-              <div className={cx("sidebar__menu__item__logo")}>{item.logo}</div>
-              <div className={cx("sidebar__menu__item__text")}>{item.text}</div>
-            </div>
-          </Link>
-        ))}
+        {!userUid ? (
+          "로그인을 해주세요"
+        ) : (
+          <>
+            {sidebarItems.map((item, index) => (
+              <Link
+                className={cx("sidebar__menu__link")}
+                to={item.path}
+                key={index}
+              >
+                <div
+                  className={cx("sidebar__menu__item")}
+                  style={{
+                    color: `${activeIndex === index ? "red" : "white"}`,
+                  }}
+                >
+                  <div className={cx("sidebar__menu__item__logo")}>
+                    {item.logo}
+                  </div>
+                  <div className={cx("sidebar__menu__item__text")}>
+                    {item.text}
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </>
+        )}
       </div>
     </div>
   );

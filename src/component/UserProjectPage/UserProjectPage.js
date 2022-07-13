@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import axios from "axios";
 import classNames from "classnames/bind";
 
-import { firebaseUserState } from "../../recoil/atom";
+import { firebaseUserState, isShowingScreenShotState } from "../../recoil/atom";
 import styles from "./UserProjectPage.module.scss";
 
 const cx = classNames.bind(styles);
@@ -16,6 +16,8 @@ export default function UserProjectPage() {
   const [testUrl, setTestUrl] = useState("");
   const [testLists, setTestLists] = useState(null);
   const [isRendering, setIsRendering] = useState(false);
+
+  const setIsShowingScreenShot = useSetRecoilState(isShowingScreenShotState);
 
   useEffect(() => {
     const fetchTestsData = async () => {
@@ -60,24 +62,63 @@ export default function UserProjectPage() {
       .catch((err) => console.error("Error", err));
   };
 
+  const handleTestDeleteButtonClick = (testId) => {
+    axios
+      .delete(
+        process.env.REACT_APP_SERVER_URL +
+          `/users/${userUid}/projects/${params.projectId}/test/${testId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
+      .then(() => setIsRendering(!isRendering))
+      .catch((err) => console.error("Error", err));
+  };
+
+  const handleShowingScreenShotButtonClick = () => {
+    setIsShowingScreenShot(true);
+  };
+
   return (
-    <div>
-      <h1>Test</h1>
+    <div className={cx("test__wrapper")}>
+      <div className={cx("test__title")}>
+        <h1>Test List</h1>
+      </div>
       {testLists?.data.map((testData) => {
         return (
           <div className={cx("test__item")} key={testData._id}>
             <a className={cx("test__item__url")} href={testData.url}>
               {testData.url}
             </a>
-            <div className={cx("test__item__content")}>
-              <Link
-                className={cx("test__item__script")}
-                to={`/user/project/${params.projectId}/${testData.uniqId}`}
-              >
-                script
-              </Link>
+            <div className={cx("test__item__wrapper")}>
+              <div className={cx("test__item__script")}>
+                <Link
+                  className={cx("test__item__link")}
+                  to={`/user/project/${params.projectId}/${testData.uniqId}`}
+                >
+                  script
+                </Link>
+              </div>
+              <div>
+                <Link
+                  className={cx("test__item__screenshot")}
+                  to={`/user/project/${params.projectId}/${testData.uniqId}/screenshot`}
+                  onClick={handleShowingScreenShotButtonClick}
+                >
+                  screen shot
+                </Link>
+              </div>
+              <div>
+                <button
+                  className={cx("test__item__button")}
+                  onClick={() => handleTestDeleteButtonClick(testData._id)}
+                >
+                  Delete
+                </button>
+              </div>
             </div>
-            <div>screen shot</div>
           </div>
         );
       })}

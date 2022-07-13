@@ -46,9 +46,18 @@
 }
 
 .test {
+  &__title {
+    text-align: center;
+
+    h1 {
+      font-size: 40px;
+    }
+  }
+
   &__item {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     margin: 20px;
     padding: 20px 30px;
     font-size: 25px;
@@ -60,9 +69,25 @@
       @include link-decoration(black, blue);
     }
 
-    &__script {
+    &__wrapper {
+      display: grid;
+      grid-auto-flow: column;
+      justify-content: center;
+      align-content: center;
+      gap: 20px;
+    }
+
+    &__link {
       @include link-decoration(rgb(52, 52, 186), red);
-      margin-left: 200px;
+    }
+
+    &__screenshot {
+      @include link-decoration(rgb(52, 52, 186), rgb(52, 52, 186));
+    }
+
+    &__button {
+      color: red;
+      @include button-decoration(10px 20px, 20px, 10px, white, red);
     }
   }
 
