@@ -49,7 +49,7 @@ export default function Sidebar() {
     <div className={cx("sidebar")}>
       <div className={cx("sidebar__menu")}>
         {!userUid ? (
-          "로그인을 해주세요"
+          <div className={cx("sidebar__message")}>로그인해주세요</div>
         ) : (
           <>
             {sidebarItems.map((item, index) => (

@@ -65,7 +65,7 @@ export default function BarChart({ resultData }) {
       .attr("x", (d, i) => xScale(i))
       .attr("width", xScale.bandwidth())
       .attr("y", (d) => yScale(0))
-      .attr("height", (d) => yScale(d.visitCount) - yScale(0))
+      .attr("height", (d) => yScale(0) - chartHeight)
       .on("mouseover", (e, d) => {
         select(e.currentTarget).attr("fill", "yellow");
 

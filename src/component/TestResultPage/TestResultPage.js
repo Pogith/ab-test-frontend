@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import axios from "axios";
 import classNames from "classnames/bind";
@@ -13,6 +13,7 @@ import styles from "./TestResultPage.module.scss";
 const cx = classNames.bind(styles);
 
 export default function TestResultPage() {
+  const navigate = useNavigate();
   const params = useParams();
   const [visitResults, setVisitResults] = useState(null);
   const [testResults, setTestResults] = useState(null);
@@ -72,15 +73,18 @@ export default function TestResultPage() {
   const agentResults = Object.values(visitAgent).map((data) => data);
 
   return (
-    <div className={cx("chart__container")}>
-      {testResults && visitResults && (
-        <>
-          <BarChart resultData={testResults} />
-          <RevisitBarChart resultData={testResults} />
-          <PieChart resultData={browserResults} />
-          <PieChart resultData={agentResults} />
-        </>
-      )}
+    <div>
+      <button onClick={() => navigate("/")}>Back</button>
+      <div className={cx("chart__container")}>
+        {testResults && visitResults && (
+          <>
+            <BarChart resultData={testResults} />
+            <RevisitBarChart resultData={testResults} />
+            <PieChart resultData={browserResults} />
+            <PieChart resultData={agentResults} />
+          </>
+        )}
+      </div>
     </div>
   );
 }

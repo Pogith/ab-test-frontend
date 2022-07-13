@@ -1,0 +1,64 @@
+$border-style: 2px solid black;
+
+@mixin box-decoration($image-url) {
+  width: 40%;
+  height: 100%;
+  margin-top: 150px;
+  padding: 200px 0;
+  font-size: 40px;
+  color: black;
+  text-align: center;
+  cursor: pointer;
+  background-image: url($image-url);
+  background-size: cover;
+  border: $border-style;
+  border-radius: 20px;
+  box-shadow: 5px 5px 5px -1px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease-in-out;
+  transform: translateY(0);
+
+  &:hover {
+    transform: translateY(-20px);
+  }
+}
+
+@mixin item-decoration($text-color, $hover-color) {
+  color: $text-color;
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+
+  &:hover {
+    color: $hover-color;
+  }
+}
+
+.home {
+  &__wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  &__project {
+    @include box-decoration("../../img/project.png");
+    text-decoration: none;
+
+    &__item {
+      @include item-decoration(black, white);
+    }
+  }
+
+  &__userpage {
+    @include box-decoration("../../img/userpage.png");
+    text-decoration: none;
+
+    &__item {
+      @include item-decoration(black, white);
+    }
+  }
+
+  &__message {
+    @include box-decoration("../../img/login.png");
+  }
+}
