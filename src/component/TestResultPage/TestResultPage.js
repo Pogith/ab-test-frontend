@@ -1,14 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import axios from "axios";
 import classNames from "classnames/bind";
 
-import {
-  firebaseUserState,
-  testResultState,
-  visitResultState,
-} from "../../recoil/atom";
+import { firebaseUserState } from "../../recoil/atom";
 import BarChart from "../Chart/BarChart";
 import RevisitBarChart from "../Chart/RevisitBarChart";
 import PieChart from "../Chart/PieChart";
@@ -18,8 +14,8 @@ const cx = classNames.bind(styles);
 
 export default function TestResultPage() {
   const params = useParams();
-  const [visitResults, setVisitResults] = useRecoilState(visitResultState);
-  const [testResults, setTestResults] = useRecoilState(testResultState);
+  const [visitResults, setVisitResults] = useState(null);
+  const [testResults, setTestResults] = useState(null);
   const userUid = useRecoilValue(firebaseUserState);
 
   useEffect(() => {
@@ -77,10 +73,14 @@ export default function TestResultPage() {
 
   return (
     <div className={cx("chart__container")}>
-      {testResults && <BarChart />}
-      {testResults && <RevisitBarChart />}
-      {visitResults && <PieChart resultData={browserResults} />}
-      {visitResults && <PieChart resultData={agentResults} />}
+      {testResults && visitResults && (
+        <>
+          <BarChart resultData={testResults} />
+          <RevisitBarChart resultData={testResults} />
+          <PieChart resultData={browserResults} />
+          <PieChart resultData={agentResults} />
+        </>
+      )}
     </div>
   );
 }

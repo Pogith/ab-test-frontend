@@ -15,12 +15,7 @@ export const isShowingModalState = atom({
   default: false,
 });
 
-export const testResultState = atom({
-  key: "testResult",
-  default: null,
-});
-
-export const visitResultState = atom({
-  key: "visitResult",
-  default: null,
+export const isShowingScreenShotState = atom({
+  key: "isShowingScreenShot",
+  default: false,
 });
