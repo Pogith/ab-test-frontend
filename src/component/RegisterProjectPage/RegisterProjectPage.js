@@ -22,7 +22,7 @@ export default function RegisterProjectPage() {
 
     axios
       .post(
-        process.env.REACT_APP_SERVER_URL + `/users/${userUid}/projects`,
+        `${process.env.REACT_APP_SERVER_URL}/users/${userUid}/projects`,
         {
           projectName,
         },

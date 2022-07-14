@@ -22,8 +22,7 @@ export default function TestResultPage() {
   useEffect(() => {
     const fetchResultData = async () => {
       const response = await axios.get(
-        process.env.REACT_APP_SERVER_URL +
-          `/users/${userUid}/projects/${params.projectId}/results`,
+        `${process.env.REACT_APP_SERVER_URL}/users/${userUid}/projects/${params.projectId}/results`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,

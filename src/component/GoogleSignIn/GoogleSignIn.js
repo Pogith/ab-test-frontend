@@ -41,7 +41,7 @@ export default function GoogleSignIn() {
 
         axios
           .post(
-            process.env.REACT_APP_SERVER_URL + "/auth/login",
+            `${process.env.REACT_APP_SERVER_URL}/auth/login`,
             firebaseUserData,
             {
               headers: {

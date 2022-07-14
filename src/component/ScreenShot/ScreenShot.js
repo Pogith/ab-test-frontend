@@ -22,8 +22,7 @@ export default function ScreenShot() {
   useEffect(() => {
     const fetchScreenShot = async () => {
       const response = await axios.get(
-        process.env.REACT_APP_SERVER_URL +
-          `/users/${userUid}/projects/${uniqId}/screen-shot`,
+        `${process.env.REACT_APP_SERVER_URL}/users/${userUid}/projects/${uniqId}/screen-shot`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
