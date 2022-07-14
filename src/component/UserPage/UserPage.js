@@ -17,7 +17,7 @@ export default function UserPage() {
     const fetchProjectsData = async () => {
       try {
         const response = await axios.get(
-          process.env.REACT_APP_SERVER_URL + `/users/${userUid}/projects`,
+          `${process.env.REACT_APP_SERVER_URL}/users/${userUid}/projects`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -37,8 +37,7 @@ export default function UserPage() {
   const handleProjectDeleteButtonClick = (projectId) => {
     axios
       .delete(
-        process.env.REACT_APP_SERVER_URL +
-          `/users/${userUid}/projects/${projectId}`,
+        `${process.env.REACT_APP_SERVER_URL}/users/${userUid}/projects/${projectId}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,

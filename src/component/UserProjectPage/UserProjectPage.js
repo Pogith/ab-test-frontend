@@ -23,8 +23,7 @@ export default function UserProjectPage() {
     const fetchTestsData = async () => {
       try {
         const response = await axios.get(
-          process.env.REACT_APP_SERVER_URL +
-            `/users/${userUid}/projects/${params.projectId}/testlists`,
+          `${process.env.REACT_APP_SERVER_URL}/users/${userUid}/projects/${params.projectId}/testlists`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -44,8 +43,7 @@ export default function UserProjectPage() {
   const handleRegisterTestUrlButtonClick = () => {
     axios
       .post(
-        process.env.REACT_APP_SERVER_URL +
-          `/users/${userUid}/projects/${params.projectId}/testlists`,
+        `${process.env.REACT_APP_SERVER_URL}/users/${userUid}/projects/${params.projectId}/testlists`,
         {
           testUrl,
         },
@@ -65,8 +63,7 @@ export default function UserProjectPage() {
   const handleTestDeleteButtonClick = (testId) => {
     axios
       .delete(
-        process.env.REACT_APP_SERVER_URL +
-          `/users/${userUid}/projects/${params.projectId}/test/${testId}`,
+        `${process.env.REACT_APP_SERVER_URL}/users/${userUid}/projects/${params.projectId}/test/${testId}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
