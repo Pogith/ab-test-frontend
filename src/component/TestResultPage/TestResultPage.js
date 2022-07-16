@@ -9,6 +9,7 @@ import BarChart from "../Chart/BarChart";
 import RevisitBarChart from "../Chart/RevisitBarChart";
 import PieChart from "../Chart/PieChart";
 import styles from "./TestResultPage.module.scss";
+import TimeChart from "../Chart/TimeChart";
 
 const cx = classNames.bind(styles);
 
@@ -41,6 +42,11 @@ export default function TestResultPage() {
     return data.useragent;
   });
 
+  const visitTimeData = visitResults?.map((data) => {
+    return data.visited_at;
+  });
+
+  const visitTime = {};
   const visitByBrowser = {};
   const visitAgent = {};
 
@@ -68,8 +74,22 @@ export default function TestResultPage() {
     }
   });
 
+  visitTimeData?.forEach((data) => {
+    const time = data.toString().split(".")[0];
+
+    if (visitTime[time]) {
+      visitTime[time].count++;
+    } else {
+      visitTime[time] = {
+        time: new Date(time),
+        count: 1,
+      };
+    }
+  });
+
   const browserResults = Object.values(visitByBrowser).map((data) => data);
   const agentResults = Object.values(visitAgent).map((data) => data);
+  const timeResults = Object.values(visitTime).map((data) => data);
 
   return (
     <div>
@@ -81,6 +101,7 @@ export default function TestResultPage() {
             <RevisitBarChart resultData={testResults} />
             <PieChart resultData={browserResults} />
             <PieChart resultData={agentResults} />
+            <TimeChart resultData={timeResults} />
           </>
         )}
       </div>
