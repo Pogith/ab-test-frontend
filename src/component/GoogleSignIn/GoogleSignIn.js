@@ -75,7 +75,7 @@ export default function GoogleSignIn() {
         </button>
       ) : (
         <button className={cx("login_button")} onClick={handleSignOut}>
-          Sing Out
+          Sign Out
         </button>
       )}
     </div>
