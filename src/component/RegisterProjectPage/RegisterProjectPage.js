@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import axios from "axios";
 import classNames from "classnames/bind";
 
 import { firebaseUserState, isShowingModalState } from "../../recoil/atom";
+import { axiosPostRequest } from "../../data/api";
 import ModalPortal from "../common/ModalPortal/ModalPortal";
 import Modal from "../common/Modal/Modal";
 import styles from "./RegisterProjectPage.module.scss";
@@ -17,25 +17,19 @@ export default function RegisterProjectPage() {
   const userUid = useRecoilValue(firebaseUserState);
   const [projectName, setProjectName] = useState("");
 
-  const handleProjectRegister = () => {
+  const handleProjectRegister = async () => {
     if (!projectName) return alert("프로젝트 이름을 입력해주세요!");
 
-    axios
-      .post(
-        `${process.env.REACT_APP_SERVER_URL}/users/${userUid}/projects`,
-        {
-          projectName,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      )
-      .then(() => setIsCloseModal(false))
-      .catch((err) => console.error("There is an Error", err));
+    try {
+      const projectPostRequestUrl = `${process.env.REACT_APP_SERVER_URL}/users/${userUid}/projects`;
 
-    navigate("/");
+      await axiosPostRequest(projectPostRequestUrl, { projectName });
+
+      setIsCloseModal(false);
+      navigate("/");
+    } catch (err) {
+      console.error("Project Register Error", err);
+    }
   };
 
   return (

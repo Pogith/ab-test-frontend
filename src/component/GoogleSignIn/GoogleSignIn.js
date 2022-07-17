@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import classNames from "classnames/bind";
 
 import { auth, signInWithGoogle, signOut } from "../../auth/firebase";
 import { firebaseUserState, tokenState } from "../../recoil/atom";
+import { axiosPostRequest } from "../../data/api";
 import styles from "./GoogleSignIn.module.scss";
 
 const cx = classNames.bind(styles);
@@ -24,33 +24,30 @@ export default function GoogleSignIn() {
     signInWithGoogle();
 
     auth.onAuthStateChanged(async (data) => {
-      if (data) {
-        const response = await auth.currentUser.getIdToken();
-        const userData = JSON.parse(JSON.stringify(data));
+      try {
+        if (data) {
+          const response = await auth.currentUser.getIdToken();
+          const userData = JSON.parse(JSON.stringify(data));
 
-        setToken(response);
-        setUser(userData["uid"]);
+          setToken(response);
+          setUser(userData["uid"]);
 
-        localStorage.setItem("token", response);
-        localStorage.setItem("user", userData["uid"]);
+          localStorage.setItem("token", response);
+          localStorage.setItem("user", userData["uid"]);
 
-        const firebaseUserData = {
-          user: userData,
-          token: response,
-        };
+          const firebaseUserData = {
+            user: userData,
+            token: response,
+          };
 
-        axios
-          .post(
-            `${process.env.REACT_APP_SERVER_URL}/auth/login`,
-            firebaseUserData,
-            {
-              headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-              },
-            }
-          )
-          .then(() => navigate("/"))
-          .catch((err) => console.error("Error", err));
+          const signInPostRequestUrl = `${process.env.REACT_APP_SERVER_URL}/auth/login`;
+
+          await axiosPostRequest(signInPostRequestUrl, firebaseUserData);
+
+          navigate("/");
+        }
+      } catch (err) {
+        console.error("Sign In Error", err);
       }
     });
   };

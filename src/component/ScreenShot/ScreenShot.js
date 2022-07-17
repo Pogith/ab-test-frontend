@@ -1,37 +1,37 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import axios from "axios";
 import classNames from "classnames/bind";
 import { RiHome2Line } from "react-icons/ri";
 import PulseLoader from "react-spinners/PulseLoader";
 
 import { firebaseUserState, isShowingScreenShotState } from "../../recoil/atom";
+import { axiosGetRequest } from "../../data/api";
 import styles from "./ScreenShot.module.scss";
 
 const cx = classNames.bind(styles);
 
 export default function ScreenShot() {
   const navigate = useNavigate();
-  const userUid = useRecoilValue(firebaseUserState);
   const { uniqId } = useParams();
+
+  const userUid = useRecoilValue(firebaseUserState);
+  const setIsSwhoingScreenShot = useSetRecoilState(isShowingScreenShotState);
+
   const [screenshot, setScreenshot] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const setIsSwhoingScreenShot = useSetRecoilState(isShowingScreenShotState);
 
   useEffect(() => {
     const fetchScreenShot = async () => {
-      const response = await axios.get(
-        `${process.env.REACT_APP_SERVER_URL}/users/${userUid}/projects/${uniqId}/screen-shot`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      try {
+        const screenShotGetRequestUrl = `${process.env.REACT_APP_SERVER_URL}/users/${userUid}/projects/${uniqId}/screen-shot`;
+        const response = await axiosGetRequest(screenShotGetRequestUrl);
 
-      setScreenshot(response);
-      setIsLoading(true);
+        setScreenshot(response);
+        setIsLoading(true);
+      } catch (err) {
+        console.error("Screenshot Error", err);
+      }
     };
 
     fetchScreenShot();

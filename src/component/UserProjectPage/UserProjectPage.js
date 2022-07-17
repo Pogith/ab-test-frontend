@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import axios from "axios";
 import classNames from "classnames/bind";
 
 import { firebaseUserState, isShowingScreenShotState } from "../../recoil/atom";
+import {
+  axiosGetRequest,
+  axiosPostRequest,
+  axiosDeleteRequest,
+} from "../../data/api";
 import styles from "./UserProjectPage.module.scss";
 
 const cx = classNames.bind(styles);
@@ -12,66 +16,53 @@ const cx = classNames.bind(styles);
 export default function UserProjectPage() {
   const navigate = useNavigate();
   const params = useParams();
-  const userUid = useRecoilValue(firebaseUserState);
+
   const [testUrl, setTestUrl] = useState("");
   const [testLists, setTestLists] = useState(null);
-  const [isRendering, setIsRendering] = useState(false);
 
+  const userUid = useRecoilValue(firebaseUserState);
   const setIsShowingScreenShot = useSetRecoilState(isShowingScreenShotState);
 
   useEffect(() => {
-    const fetchTestsData = async () => {
-      try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_SERVER_URL}/users/${userUid}/projects/${params.projectId}/testlists`,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
-
-        setTestLists(response);
-      } catch (err) {
-        console.error("Error", err);
-      }
-    };
-
     fetchTestsData();
-  }, [isRendering]);
+  }, []);
 
-  const handleRegisterTestUrlButtonClick = () => {
-    axios
-      .post(
-        `${process.env.REACT_APP_SERVER_URL}/users/${userUid}/projects/${params.projectId}/testlists`,
-        {
-          testUrl,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      )
-      .then(() => {
-        setIsRendering(!isRendering);
-        setTestUrl("");
-      })
-      .catch((err) => console.error("Error", err));
+  const fetchTestsData = async () => {
+    try {
+      const testDataGetRequestUrl = `${process.env.REACT_APP_SERVER_URL}/users/${userUid}/projects/${params.projectId}/testlists`;
+      const response = await axiosGetRequest(testDataGetRequestUrl);
+
+      setTestLists(response);
+    } catch (err) {
+      console.error("TestsData Error", err);
+    }
   };
 
-  const handleTestDeleteButtonClick = (testId) => {
-    axios
-      .delete(
-        `${process.env.REACT_APP_SERVER_URL}/users/${userUid}/projects/${params.projectId}/test/${testId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      )
-      .then(() => setIsRendering(!isRendering))
-      .catch((err) => console.error("Error", err));
+  const handleRegisterTestUrlButtonClick = async () => {
+    if (!testUrl) return alert("Url을 입력해주세요!");
+
+    try {
+      const testPostRequestUrl = `${process.env.REACT_APP_SERVER_URL}/users/${userUid}/projects/${params.projectId}/testlists`;
+
+      await axiosPostRequest(testPostRequestUrl, { testUrl });
+
+      setTestUrl("");
+      fetchTestsData();
+    } catch (err) {
+      console.error("Test Register Error", err);
+    }
+  };
+
+  const handleTestDeleteButtonClick = async (testId) => {
+    try {
+      const testDeleteRequestUrl = `${process.env.REACT_APP_SERVER_URL}/users/${userUid}/projects/${params.projectId}/test/${testId}`;
+
+      await axiosDeleteRequest(testDeleteRequestUrl);
+
+      fetchTestsData();
+    } catch (err) {
+      console.error("Test Delete Error", err);
+    }
   };
 
   const handleShowingScreenShotButtonClick = () => {
