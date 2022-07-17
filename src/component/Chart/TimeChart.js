@@ -4,6 +4,7 @@ import { select } from "d3";
 
 export default function TimeChart({ resultData }) {
   const svgRef = useRef();
+  const sortedTime = resultData?.sort((a, b) => a.time - b.time);
 
   useEffect(() => {
     const chartWidth = 700;
@@ -17,7 +18,10 @@ export default function TimeChart({ resultData }) {
 
     const xScale = d3
       .scaleTime()
-      .domain(d3.extent(resultData, (d) => d.time))
+      .domain([
+        new Date(sortedTime[0]?.time),
+        new Date(sortedTime[sortedTime.length - 1]?.time),
+      ])
       .range([50, 600]);
 
     const yScale = d3.scaleLinear().domain([0, 9]).range([330, 50]);
