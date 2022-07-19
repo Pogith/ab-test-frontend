@@ -44,7 +44,9 @@ export default function TestResultPage() {
 
   return (
     <div>
-      <button onClick={() => navigate("/")}>Back</button>
+      <div className={cx("chart__button")}>
+        <button onClick={() => navigate("/")}>Back</button>
+      </div>
       <div className={cx("chart__container")}>
         {testResults && visitResults && (
           <>

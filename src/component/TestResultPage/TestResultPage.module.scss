@@ -1,9 +1,32 @@
+$white-color: white;
+
 .chart {
+  &__button {
+    text-align: center;
+
+    & > button {
+      padding: 10px 50px;
+      font-size: 20px;
+      font-weight: 900;
+      cursor: pointer;
+      color: $white-color;
+      background-color: black;
+      border: none;
+      border-radius: 10px;
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        color: $white-color;
+        background-color: gray;
+      }
+    }
+  }
+
   &__container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-evenly;
-    background-color: white;
+    background-color: $white-color;
   }
 }

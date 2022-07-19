@@ -51,20 +51,22 @@ export default function UserPage() {
             >
               <h1>{projectData.projectName}</h1>
             </Link>
-            <button className={cx("project__button")}>
-              <Link
-                className={cx("project__list__link")}
-                to={`/user/project/result/${projectData._id}`}
+            <div>
+              <button className={cx("project__button")}>
+                <Link
+                  className={cx("project__list__link")}
+                  to={`/user/project/result/${projectData._id}`}
+                >
+                  View Results
+                </Link>
+              </button>
+              <button
+                className={cx("project__deletebutton")}
+                onClick={() => handleProjectDeleteButtonClick(projectData._id)}
               >
-                View Results
-              </Link>
-            </button>
-            <button
-              className={cx("project__deletebutton")}
-              onClick={() => handleProjectDeleteButtonClick(projectData._id)}
-            >
-              delete
-            </button>
+                delete
+              </button>
+            </div>
           </div>
         );
       })}

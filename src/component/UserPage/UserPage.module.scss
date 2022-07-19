@@ -40,12 +40,6 @@ $color: black;
     border: 2px solid rgb(80, 75, 75);
     border-radius: 10px;
     box-shadow: 5px 5px 5px -1px rgba(0, 0, 0, 0.5);
-    transition: all 0.3s ease-in-out;
-    transform: translate(0, 0);
-
-    &:hover {
-      transform: translate(-10px, -20px);
-    }
 
     &__link {
       padding: 30px;
