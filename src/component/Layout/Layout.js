@@ -6,15 +6,14 @@ import classNames from "classnames/bind";
 import { isShowingScreenShotState } from "../../recoil/atom";
 import Home from "../Home/Home";
 import RegisterProjectPage from "../RegisterProjectPage/RegisterProjectPage";
-import Sidebar from "../Sidebar/Sidebar";
 import ScreenShot from "../ScreenShot/ScreenShot";
 import ScriptKeyModal from "../ScriptKeyModal/ScriptKeyModal";
 import TestResultPage from "../TestResultPage/TestResultPage";
 import Topbar from "../Topbar/Topbar";
 import UserPage from "../UserPage/UserPage";
 import UserProjectPage from "../UserProjectPage/UserProjectPage";
-import styles from "./Layout.module.scss";
 import NotFound from "../NotFound/NotFound";
+import styles from "./Layout.module.scss";
 
 const cx = classNames.bind(styles);
 
@@ -25,11 +24,6 @@ export default function Layout() {
     <div>
       {!isShowingScreenShot && <Topbar />}
       <div className={cx("layout")}>
-        {!isShowingScreenShot && (
-          <div className={cx("layout__sidebar")}>
-            <Sidebar />
-          </div>
-        )}
         <div className={cx("layout__content")}>
           <Routes>
             {!isShowingScreenShot && (
