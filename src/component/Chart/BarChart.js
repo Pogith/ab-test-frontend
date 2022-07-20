@@ -2,6 +2,8 @@ import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 import { select } from "d3";
 
+import Head from "../common/Head/Head";
+
 export default function BarChart({ resultData }) {
   const svgRef = useRef();
 
@@ -13,7 +15,9 @@ export default function BarChart({ resultData }) {
       .select(svgRef.current)
       .attr("width", chartWidth + margin.right + margin.left)
       .attr("height", chartHeight + margin.top + margin.bottom)
-      .style("border", "1px solid black");
+      .style("border", "1px solid black")
+      .style("border-radius", "10px")
+      .style("box-shadow", "10px 10px 5px -2px rgba(103, 103, 103, 0.7)");
 
     const xScale = d3
       .scaleBand()
@@ -54,7 +58,7 @@ export default function BarChart({ resultData }) {
       .style("border-radius", "10px")
       .style("background-color", "blue");
 
-    const defaultBarColor = "#69b3a2";
+    const defaultBarColor = "red";
 
     svg
       .append("g")
@@ -107,8 +111,13 @@ export default function BarChart({ resultData }) {
   }, []);
 
   return (
-    <div id="bar-chart">
-      <svg ref={svgRef}></svg>
+    <div>
+      <div>
+        <Head message={"Visit"} />
+      </div>
+      <div id="bar-chart">
+        <svg ref={svgRef}></svg>
+      </div>
     </div>
   );
 }
