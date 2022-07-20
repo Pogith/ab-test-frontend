@@ -16,7 +16,7 @@ export default function Topbar() {
   const [activeIndex, setActiveIndex] = useState(0);
   const location = useLocation();
 
-  const sidebarItems = [
+  const topbarItems = [
     {
       text: "Home",
       path: "/",
@@ -36,7 +36,7 @@ export default function Topbar() {
 
   useEffect(() => {
     const currentPath = window.location.pathname.split("/")[1];
-    const activeItem = sidebarItems.findIndex(
+    const activeItem = topbarItems.findIndex(
       (item) => item.section === currentPath
     );
 
@@ -61,7 +61,7 @@ export default function Topbar() {
             <div className={cx("topbar__menu__message")}>로그인해주세요</div>
           ) : (
             <>
-              {sidebarItems.map((item, index) => (
+              {topbarItems.map((item, index) => (
                 <Link
                   className={cx("topbar__menu__link")}
                   to={item.path}
