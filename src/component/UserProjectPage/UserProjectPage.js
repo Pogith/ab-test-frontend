@@ -116,6 +116,7 @@ export default function UserProjectPage() {
         value={testUrl}
         onChange={(e) => setTestUrl(e.target.value)}
         placeholder="ex) https://www.abtest.com"
+        data-testid="testurl-input"
       />
       <button
         className={cx("test__button")}
