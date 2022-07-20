@@ -50,11 +50,15 @@ export default function TestResultPage() {
       <div className={cx("chart__container")}>
         {testResults && visitResults && (
           <>
-            <BarChart resultData={testResults} />
-            <RevisitBarChart resultData={testResults} />
-            <PieChart resultData={browserResults} />
-            <PieChart resultData={agentResults} />
-            <TimeChart resultData={timeResults} />
+            <div className={cx("chart__container__top")}>
+              <BarChart resultData={testResults} />
+              <RevisitBarChart resultData={testResults} />
+              <PieChart resultData={browserResults} message={"Useragent"} />
+            </div>
+            <div className={cx("chart__container__bottom")}>
+              <TimeChart resultData={timeResults} />
+              <PieChart resultData={agentResults} message={"Media"} />
+            </div>
           </>
         )}
       </div>

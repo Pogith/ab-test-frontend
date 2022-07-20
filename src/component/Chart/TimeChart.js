@@ -2,6 +2,8 @@ import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 import { select } from "d3";
 
+import Head from "../common/Head/Head";
+
 export default function TimeChart({ resultData }) {
   const svgRef = useRef();
   const sortedTime = resultData?.sort((a, b) => a.time - b.time);
@@ -14,7 +16,9 @@ export default function TimeChart({ resultData }) {
       .attr("width", chartWidth)
       .attr("height", chartHeight)
       .style("padding", "40px")
-      .style("border", "1px solid black");
+      .style("border", "1px solid black")
+      .style("border-radius", "10px")
+      .style("box-shadow", "10px 10px 5px -2px rgba(103, 103, 103, 0.7)");
 
     const xScale = d3
       .scaleTime()
@@ -88,8 +92,13 @@ export default function TimeChart({ resultData }) {
   }, []);
 
   return (
-    <div id="time-chart">
-      <svg ref={svgRef}></svg>
+    <div>
+      <div>
+        <Head message={"Visit Time"} />
+      </div>
+      <div id="time-chart">
+        <svg ref={svgRef}></svg>
+      </div>
     </div>
   );
 }

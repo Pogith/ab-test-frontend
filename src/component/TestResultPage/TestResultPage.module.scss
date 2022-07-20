@@ -23,10 +23,18 @@ $white-color: white;
   }
 
   &__container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
     background-color: $white-color;
+
+    &__top {
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+    }
+
+    &__bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+    }
   }
 }
