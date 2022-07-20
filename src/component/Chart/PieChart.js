@@ -1,8 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
-import { select } from "d3";
+import { select, text } from "d3";
 
-export default function PieChart({ resultData }) {
+import Head from "../common/Head/Head";
+
+export default function PieChart({ resultData, message }) {
   const svgRef = useRef();
 
   const countSum = resultData.reduce((previous, current) => {
@@ -11,15 +13,19 @@ export default function PieChart({ resultData }) {
 
   useEffect(() => {
     const circle = {
-      width: 300,
-      height: 300,
+      width: 500,
+      height: 350,
       thickness: 100,
     };
     const radius = Math.min(circle.width, circle.height) / 2;
     const svg = d3
       .select(svgRef.current)
       .attr("width", circle.width)
-      .attr("height", circle.height);
+      .attr("height", circle.height)
+      .style("padding", "25px")
+      .style("border", "1px solid black")
+      .style("border-radius", "10px")
+      .style("box-shadow", "10px 10px 5px -2px rgba(103, 103, 103, 0.7)");
 
     const g = svg
       .append("g")
@@ -28,7 +34,7 @@ export default function PieChart({ resultData }) {
         `translate(${circle.width / 2}, ${circle.height / 2})`
       );
 
-    const color = d3.scaleOrdinal().range(d3.schemeSet2);
+    const color = d3.scaleOrdinal().range(d3.schemeCategory10);
     const data = d3.pie().value((d) => d.count)(resultData);
     const arc = d3
       .arc()
@@ -53,6 +59,22 @@ export default function PieChart({ resultData }) {
 
     arcs
       .append("path")
+      .attr("fill", (d, i) => color(d.value))
+      .attr("d", arc)
+      .transition()
+      .duration(1000)
+      .attrTween("d", (d) => {
+        const interpolate = d3.interpolate(d.startAngle, d.endAngle);
+
+        return (t) => {
+          d.endAngle = interpolate(t);
+
+          return arc(d);
+        };
+      });
+
+    arcs
+      .select("path")
       .attr("fill", (d, i) => color(d.value))
       .attr("d", arc)
       .on("mouseover", (e, d) => {
@@ -87,8 +109,13 @@ export default function PieChart({ resultData }) {
   }, []);
 
   return (
-    <div id="pie-chart">
-      <svg ref={svgRef}></svg>
+    <div>
+      <div>
+        <Head message={message} />
+      </div>
+      <div id="pie-chart">
+        <svg ref={svgRef}></svg>
+      </div>
     </div>
   );
 }
