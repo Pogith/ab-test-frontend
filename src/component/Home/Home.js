@@ -15,10 +15,10 @@ export default function Home() {
   return (
     <div className={cx("home")}>
       <div className={cx("home__content")}>
-        <h1>A/B testing</h1>
+        <h1  data-testid="home-title">A/B testing</h1>
         <p>What is A/B testing?</p>
 
-        <p>
+        <p data-testid="home-content">
           A/B testing is a method of comparing two versions of a webpage or app
           against each other to determine which one performs better. A/B testing
           is essentially an experiment where two or more variants of a page are
