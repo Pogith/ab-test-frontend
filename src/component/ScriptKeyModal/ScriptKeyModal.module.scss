@@ -3,10 +3,13 @@ $white-color: rgb(255, 255, 255);
 
 .script {
   &__key {
+    margin: 10px;
     font-size: 20px;
     color: $white-color;
+    border-radius: 10px;
     background-color: black;
   }
+
   &__copybutton {
     padding: 15px 30px;
     margin-top: 50px;

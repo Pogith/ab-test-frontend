@@ -1,5 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import { FiLink } from "react-icons/fi";
 import classNames from "classnames/bind";
 
 import Modal from "../common/Modal/Modal";
@@ -10,7 +11,7 @@ const cx = classNames.bind(styles);
 
 export default function ScriptKeyModal() {
   const { projectId, uniqId } = useParams();
-  const scriptKey = `<script type="text/javascript" src="https://abtest.click/api/test-page/ab-test?key=${uniqId}></script>`;
+  const scriptKey = `<script type="text/javascript" src="https://abtest.click/api/test-page/ab-test?key=${uniqId}"></script>`;
   const handleCopyButtonClick = async () => {
     try {
       await window.navigator.clipboard.writeText(scriptKey);
@@ -31,7 +32,7 @@ export default function ScriptKeyModal() {
               className={cx("script__copybutton")}
               onClick={handleCopyButtonClick}
             >
-              Copy
+              <FiLink />
             </button>
           </>
         }
