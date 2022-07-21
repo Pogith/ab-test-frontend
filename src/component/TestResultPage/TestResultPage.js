@@ -11,6 +11,7 @@ import TimeChart from "../Chart/TimeChart";
 import { getUserAgentResult, getTimeDataResult } from "./util";
 import { axiosGetRequest } from "../../data/api";
 import styles from "./TestResultPage.module.scss";
+import DateChart from "../Chart/DateChart";
 
 const cx = classNames.bind(styles);
 
@@ -40,12 +41,12 @@ export default function TestResultPage() {
   }, []);
 
   const { browserResults, agentResults } = getUserAgentResult(visitResults);
-  const timeResults = getTimeDataResult(visitResults);
+  const { timeResults, dateResults } = getTimeDataResult(visitResults);
 
   return (
     <div>
       <div className={cx("chart__button")}>
-        <button onClick={() => navigate("/")}>Back</button>
+        <button onClick={() => navigate(`/user/${userUid}`)}>Back</button>
       </div>
       <div className={cx("chart__container")}>
         {testResults && visitResults && (
@@ -58,6 +59,7 @@ export default function TestResultPage() {
             <div className={cx("chart__container__bottom")}>
               <TimeChart resultData={timeResults} />
               <PieChart resultData={agentResults} message={"Media"} />
+              <DateChart resultData={dateResults} />
             </div>
           </>
         )}
