@@ -38,6 +38,7 @@ export const getTimeDataResult = (visitResults) => {
   const visitTimeData = visitResults?.map((data) => data.visited_at);
 
   const visitTime = {};
+  const visitDate = {};
 
   visitTimeData?.forEach((data) => {
     if (visitTime[data]) {
@@ -48,9 +49,21 @@ export const getTimeDataResult = (visitResults) => {
         count: 1,
       };
     }
+
+    const date = new Date(data).toDateString();
+
+    if (visitDate[date]) {
+      visitDate[date].count++;
+    } else {
+      visitDate[date] = {
+        date: new Date(date),
+        count: 1,
+      };
+    }
   });
 
   const timeResults = Object.values(visitTime).map((data) => data);
+  const dateResults = Object.values(visitDate).map((date) => date);
 
-  return timeResults;
+  return { timeResults, dateResults };
 };

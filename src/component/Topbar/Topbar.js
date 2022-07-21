@@ -70,7 +70,7 @@ export default function Topbar() {
                   <div
                     className={cx("topbar__menu__item")}
                     style={{
-                      color: `${activeIndex === index ? "red" : "white"}`,
+                      color: `${activeIndex === index ? "#FFEA11" : "white"}`,
                     }}
                   >
                     <div className={cx("topbar__menu__item__text")}>
