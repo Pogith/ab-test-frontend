@@ -1,19 +1,13 @@
-$gray-color: rgb(100, 96, 115);
+$gray-color: rgb(72, 71, 79);
 $white-color: rgb(255, 255, 255);
 
-.register {
-  &__input {
-    width: 400px;
-    height: 60px;
-    margin-top: 10px;
-    font-size: 30px;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    border-bottom: 3px solid black;
+.script {
+  &__key {
+    font-size: 20px;
+    color: $white-color;
+    background-color: black;
   }
-
-  &__button {
+  &__copybutton {
     padding: 15px 30px;
     margin-top: 50px;
     margin-right: 20px;

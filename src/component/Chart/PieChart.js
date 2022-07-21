@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
-import { select, text } from "d3";
+import { select } from "d3";
 
 import Head from "../common/Head/Head";
 
@@ -13,7 +13,7 @@ export default function PieChart({ resultData, message }) {
 
   useEffect(() => {
     const circle = {
-      width: 500,
+      width: 380,
       height: 350,
       thickness: 100,
     };
