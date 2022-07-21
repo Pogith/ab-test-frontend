@@ -1,3 +1,6 @@
+$blue-color: rgb(52, 52, 186);
+$white-color: white;
+
 @mixin link-decoration($text-color, $background-color) {
   position: relative;
   color: $text-color;
@@ -50,20 +53,25 @@
     text-align: center;
 
     h1 {
-      color: white;
+      color: $white-color;
       font-size: 40px;
       font-weight: 900;
     }
   }
 
+  &__wrapper {
+    text-align: center;
+  }
+
   &__item {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    margin: 20px;
-    padding: 20px 30px;
+    justify-content: space-around;
+    width: 80%;
+    margin: 30px auto;
+    padding: 30px 0;
     font-size: 25px;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.9);
     border: 1px solid black;
     border-radius: 10px;
     box-shadow: 10px 5px 5px 3px rgba(0, 0, 0, 0.4);
@@ -73,24 +81,23 @@
     }
 
     &__wrapper {
-      display: grid;
-      grid-auto-flow: column;
-      justify-content: center;
-      align-content: center;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
       gap: 20px;
     }
 
     &__link {
-      @include link-decoration(rgb(52, 52, 186), red);
+      @include link-decoration($blue-color, $blue-color);
     }
 
     &__screenshot {
-      @include link-decoration(rgb(52, 52, 186), rgb(52, 52, 186));
+      @include link-decoration($blue-color, $blue-color);
     }
 
     &__button {
+      @include button-decoration(10px 20px, 20px, 10px, $white-color, red);
       color: red;
-      @include button-decoration(10px 20px, 20px, 10px, white, red);
     }
   }
 
@@ -99,19 +106,19 @@
     height: 50px;
     margin: 10px 30px;
     font-size: 20px;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.9);
     border-top: none;
     border-left: none;
     border-right: none;
-    border-bottom: 2px solid black;
+    border-radius: 10px;
   }
 
   &__button {
-    @include button-decoration(5px 10px, 20px, 20px, white, gray);
+    @include button-decoration(5px 10px, 20px, 20px, $white-color, gray);
   }
 
   &__backbutton {
     margin: 20px 30px;
-    @include button-decoration(10px 50px, 25px, 20px, white, gray);
+    @include button-decoration(10px 50px, 25px, 20px, $white-color, gray);
   }
 }

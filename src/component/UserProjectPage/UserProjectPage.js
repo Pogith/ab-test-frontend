@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
+import { ImDisplay } from "react-icons/im";
+import { GoCode } from "react-icons/go";
 import classNames from "classnames/bind";
 
 import { firebaseUserState, isShowingScreenShotState } from "../../recoil/atom";
@@ -15,7 +17,7 @@ const cx = classNames.bind(styles);
 
 export default function UserProjectPage() {
   const navigate = useNavigate();
-  const params = useParams();
+  const { projectId } = useParams();
 
   const [testUrl, setTestUrl] = useState("");
   const [testLists, setTestLists] = useState(null);
@@ -29,7 +31,7 @@ export default function UserProjectPage() {
 
   const fetchTestsData = async () => {
     try {
-      const testDataGetRequestUrl = `${process.env.REACT_APP_SERVER_URL}/users/${userUid}/projects/${params.projectId}/testlists`;
+      const testDataGetRequestUrl = `${process.env.REACT_APP_SERVER_URL}/users/${userUid}/projects/${projectId}/testlists`;
       const response = await axiosGetRequest(testDataGetRequestUrl);
 
       setTestLists(response);
@@ -42,7 +44,7 @@ export default function UserProjectPage() {
     if (!testUrl) return alert("Url을 입력해주세요!");
 
     try {
-      const testPostRequestUrl = `${process.env.REACT_APP_SERVER_URL}/users/${userUid}/projects/${params.projectId}/testlists`;
+      const testPostRequestUrl = `${process.env.REACT_APP_SERVER_URL}/users/${userUid}/projects/${projectId}/testlists`;
 
       await axiosPostRequest(testPostRequestUrl, { testUrl });
 
@@ -55,7 +57,7 @@ export default function UserProjectPage() {
 
   const handleTestDeleteButtonClick = async (testId) => {
     try {
-      const testDeleteRequestUrl = `${process.env.REACT_APP_SERVER_URL}/users/${userUid}/projects/${params.projectId}/test/${testId}`;
+      const testDeleteRequestUrl = `${process.env.REACT_APP_SERVER_URL}/users/${userUid}/projects/${projectId}/test/${testId}`;
 
       await axiosDeleteRequest(testDeleteRequestUrl);
 
@@ -84,18 +86,18 @@ export default function UserProjectPage() {
               <div className={cx("test__item__script")}>
                 <Link
                   className={cx("test__item__link")}
-                  to={`/user/project/${params.projectId}/${testData.uniqId}`}
+                  to={`/user/project/${projectId}/${testData.uniqId}`}
                 >
-                  script
+                  <GoCode size={"40px"} />
                 </Link>
               </div>
               <div>
                 <Link
                   className={cx("test__item__screenshot")}
-                  to={`/user/project/${params.projectId}/${testData.uniqId}/screenshot`}
+                  to={`/user/project/${projectId}/${testData.uniqId}/screenshot`}
                   onClick={handleShowingScreenShotButtonClick}
                 >
-                  screen shot
+                  <ImDisplay size={"40px"} />
                 </Link>
               </div>
               <div>
