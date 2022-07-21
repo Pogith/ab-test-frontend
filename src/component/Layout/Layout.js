@@ -26,25 +26,21 @@ export default function Layout() {
       <div className={cx("layout")}>
         <div className={cx("layout__content")}>
           <Routes>
-            {!isShowingScreenShot && (
-              <>
-                <Route path="/" element={<Home />} />
-                <Route path="/project" element={<RegisterProjectPage />} />
-                <Route path="/user/:uid" element={<UserPage />} />
-                <Route
-                  path="/user/project/:projectId"
-                  element={<UserProjectPage />}
-                />
-                <Route
-                  path="/user/project/:projectId/:uniqId"
-                  element={<ScriptKeyModal />}
-                />
-                <Route
-                  path="/user/project/result/:projectId"
-                  element={<TestResultPage />}
-                />
-              </>
-            )}
+            <Route path="/" element={<Home />} />
+            <Route path="/project" element={<RegisterProjectPage />} />
+            <Route path="/user/:uid" element={<UserPage />} />
+            <Route
+              path="/user/project/:projectId"
+              element={<UserProjectPage />}
+            />
+            <Route
+              path="/user/project/:projectId/:uniqId"
+              element={<ScriptKeyModal />}
+            />
+            <Route
+              path="/user/project/result/:projectId"
+              element={<TestResultPage />}
+            />
             <Route
               path="/user/project/:projectId/:uniqId/screenshot"
               element={<ScreenShot />}
