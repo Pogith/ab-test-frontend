@@ -6,15 +6,18 @@ import Head from "../common/Head/Head";
 
 export default function TimeChart({ resultData }) {
   const svgRef = useRef();
-  const sortedTime = resultData?.sort((a, b) => a.time - b.time);
 
   useEffect(() => {
+    const sortedTime = resultData?.sort((a, b) => a.time - b.time);
+
     const chartWidth = 700;
     const chartHeight = 400;
+    const margin = { top: 20, right: 15, bottom: 25, left: 25 };
+
     const svg = d3
       .select(svgRef.current)
-      .attr("width", chartWidth)
-      .attr("height", chartHeight)
+      .attr("width", chartWidth + margin.left + margin.right)
+      .attr("height", chartHeight + margin.top + margin.bottom)
       .style("padding", "40px")
       .style("border", "1px solid black")
       .style("border-radius", "10px")
@@ -22,11 +25,8 @@ export default function TimeChart({ resultData }) {
 
     const xScale = d3
       .scaleTime()
-      .domain([
-        new Date(sortedTime[0]?.time),
-        new Date(sortedTime[sortedTime.length - 1]?.time),
-      ])
-      .range([50, 600]);
+      .domain(d3.extent(sortedTime, (d) => d.time))
+      .range([50, chartWidth - margin.left - margin.right]);
 
     const yScale = d3.scaleLinear().domain([0, 9]).range([330, 50]);
 
@@ -52,22 +52,24 @@ export default function TimeChart({ resultData }) {
 
     svg
       .selectAll("circle")
-      .data(resultData)
+      .data(sortedTime)
       .enter()
       .append("circle")
-      .attr("cx", (d) => xScale(new Date(d.time.toString().split(".")[0])))
+      .attr("cx", (d) => xScale(new Date(d.time)))
       .attr("cy", (d) => yScale(d.count))
       .attr("r", 5)
       .style("fill", "red")
       .on("mouseover", (e, d) => {
         select(e.currentTarget).style("fill", "blue");
 
-        tooltip.style("visibility", "visible").text(`${d.time}`);
+        tooltip
+          .style("visibility", "visible")
+          .text(`${new Date(d.time).toTimeString()}`);
       })
       .on("mousemove", (e) => {
         tooltip
           .style("top", e.pageY - 50 + "px")
-          .style("left", e.pageX - 150 + "px");
+          .style("left", e.pageX - 100 + "px");
       })
       .on("mouseout", (e) => {
         select(e.currentTarget).style("fill", "red");
