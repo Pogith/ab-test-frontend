@@ -1,0 +1,29 @@
+$gray-color: rgb(72, 71, 79);
+$white-color: rgb(255, 255, 255);
+
+.script {
+  &__key {
+    font-size: 20px;
+    color: $white-color;
+    background-color: black;
+  }
+  &__copybutton {
+    padding: 15px 30px;
+    margin-top: 50px;
+    margin-right: 20px;
+    font-size: 20px;
+    color: $gray-color;
+    cursor: pointer;
+    background-color: $white-color;
+    border: 3px solid $gray-color;
+    border-radius: 10px;
+    box-shadow: 2px 4px 6px -1px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      color: $white-color;
+      background-color: $gray-color;
+      border: 3px solid $gray-color;
+    }
+  }
+}
