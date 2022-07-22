@@ -5,6 +5,7 @@ import classNames from "classnames/bind";
 
 import { firebaseUserState, tokenState } from "../../recoil/atom";
 import styles from "./Home.module.scss";
+import GoogleSignIn from "../GoogleSignIn/GoogleSignIn";
 
 const cx = classNames.bind(styles);
 
@@ -15,7 +16,7 @@ export default function Home() {
   return (
     <div className={cx("home")}>
       <div className={cx("home__content")}>
-        <h1  data-testid="home-title">A/B testing</h1>
+        <h1 data-testid="home-title">A/B testing</h1>
         <p>What is A/B testing?</p>
 
         <p data-testid="home-content">
@@ -36,6 +37,13 @@ export default function Home() {
           data-informed decisions that shift business conversations from "we
           think" to "we know." By measuring the impact that changes have on your
           metrics, you can ensure that every change produces positive results.
+        </p>
+        <p>
+          You can get analysis data on the number of visits, number of revisits,
+          useragent, mobile or desktop, and access time through our site, and
+          you will be able to develop a better website through accurate analysis
+          data than other sites. Log in to begin and click the Starting test on
+          the right-button.
         </p>
       </div>
       <div className={cx("home__wrapper")}>

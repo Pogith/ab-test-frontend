@@ -23,7 +23,7 @@ export default function RevisitBarChart({ resultData }) {
     const xScale = d3
       .scaleBand()
       .domain(d3.range(resultData.length))
-      .range([0, chartWidth + margin.right + margin.left + margin.top])
+      .range([20, chartWidth + margin.right + margin.left + margin.top])
       .padding(0.8);
 
     svg

@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { ImDisplay } from "react-icons/im";
 import { GoCode } from "react-icons/go";
+import { BsTrash } from "react-icons/bs";
 import classNames from "classnames/bind";
 
 import { firebaseUserState, isShowingScreenShotState } from "../../recoil/atom";
@@ -73,9 +74,7 @@ export default function UserProjectPage() {
 
   return (
     <div className={cx("test__wrapper")}>
-      <div className={cx("test__title")}>
-        <h1>Test List</h1>
-      </div>
+      <div className={cx("test__title")}>Test List</div>
       {testLists?.data.map((testData) => {
         return (
           <div className={cx("test__item")} key={testData._id}>
@@ -102,10 +101,10 @@ export default function UserProjectPage() {
               </div>
               <div>
                 <button
-                  className={cx("test__item__button")}
+                  className={cx("test__item__deletebutton")}
                   onClick={() => handleTestDeleteButtonClick(testData._id)}
                 >
-                  Delete
+                  <BsTrash size={"40px"} />
                 </button>
               </div>
             </div>
@@ -121,7 +120,7 @@ export default function UserProjectPage() {
         data-testid="testurl-input"
       />
       <button
-        className={cx("test__button")}
+        className={cx("test__registerbutton")}
         onClick={handleRegisterTestUrlButtonClick}
       >
         +

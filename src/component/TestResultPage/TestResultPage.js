@@ -55,10 +55,10 @@ export default function TestResultPage() {
               <BarChart resultData={testResults} />
               <RevisitBarChart resultData={testResults} />
               <PieChart resultData={browserResults} message={"Useragent"} />
+              <PieChart resultData={agentResults} message={"Device"} />
             </div>
             <div className={cx("chart__container__bottom")}>
               <TimeChart resultData={timeResults} />
-              <PieChart resultData={agentResults} message={"Media"} />
               <DateChart resultData={dateResults} />
             </div>
           </>

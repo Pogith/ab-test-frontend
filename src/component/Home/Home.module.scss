@@ -12,7 +12,6 @@ $border-style: 2px solid white;
   cursor: pointer;
   border: $border-style;
   border-radius: 20px;
-  box-shadow: 5px 5px 5px -1px rgba(0, 0, 0, 0.5);
   transition: all 0.3s ease-in-out;
   transform: translateY(0);
 
@@ -57,7 +56,21 @@ $border-style: 2px solid white;
   }
 
   &__message {
-    @include box-decoration($white-color, $border-style);
+    width: 40%;
+    margin-bottom: 60px;
+    padding: 10px 80px;
+    font-size: 40px;
+    color: $white-color;
+    text-align: center;
+    cursor: pointer;
+    border: $border-style;
+    border-radius: 20px;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      color: blue;
+      border: 2px solid blue;
+    }
   }
 }
 
