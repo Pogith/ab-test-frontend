@@ -15,7 +15,7 @@ $white-color: white;
   cursor: pointer;
   border: none;
   border-radius: $border-radius;
-  transition: background-color 0.5s ease-in-out;
+  transition: background-color 0.3s ease-in-out;
 
   &:hover {
     color: $color;
@@ -25,6 +25,12 @@ $white-color: white;
 
 .project {
   text-align: center;
+
+  &__title {
+    color: $white-color;
+    font-size: 30px;
+    font-weight: 900;
+  }
 
   &__loader {
     position: absolute;
@@ -51,27 +57,36 @@ $white-color: white;
     }
 
     &__link {
-      padding: 30px;
-      font-size: 20px;
       color: $black-color;
       text-decoration: none;
 
       &:hover {
-        color: #4B8673;
+        color: #046053;
+      }
+    }
+
+    &__linkicon {
+      color: blue;
+      text-decoration: none;
+
+      &:hover {
+        color: red;
       }
     }
   }
 
   &__button {
-    @include button-decoration(10px, 10px 30px, 20px, 20px, $white-color, #F6FBF4);
+    @include button-decoration(10px, 10px, 20px, 20px, $white-color, transparent);
+    background-color: transparent;
   }
 
   &__deletebutton {
-    @include button-decoration(10px, 10px 30px, 20px, 20px, $white-color, red);
-    color: red;
+    @include button-decoration(10px, 10px, 20px, 20px, red, transparent);
+    color: $black-color;
+    background-color: transparent;
   }
 
   &__backbutton {
-    @include button-decoration(10px 30px, 10px 50px, 20px, 20px, $white-color, gray);
+    @include button-decoration(10px 30px, 10px 50px, 30px, 20px, $white-color, gray);
   }
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { BsGraphUp, BsTrash } from "react-icons/bs";
 import classNames from "classnames/bind";
 
 import { axiosGetRequest, axiosDeleteRequest } from "../../data/api";
@@ -41,6 +42,9 @@ export default function UserPage() {
 
   return (
     <div className={cx("project")}>
+      <div className={cx("project__title")}>
+        <h1>Project List</h1>
+      </div>
       {projects?.data.map((projectData, index) => {
         return (
           <div className={cx("project__list")} key={projectData._id}>
@@ -54,17 +58,17 @@ export default function UserPage() {
             <div>
               <button className={cx("project__button")}>
                 <Link
-                  className={cx("project__list__link")}
+                  className={cx("project__list__linkicon")}
                   to={`/user/project/result/${projectData._id}`}
                 >
-                  View Results
+                  <BsGraphUp size={"40px"} />
                 </Link>
               </button>
               <button
                 className={cx("project__deletebutton")}
                 onClick={() => handleProjectDeleteButtonClick(projectData._id)}
               >
-                delete
+                <BsTrash size={"40px"} />
               </button>
             </div>
           </div>
