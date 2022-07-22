@@ -15,7 +15,7 @@ export default function PieChart({ resultData, message }) {
     const circle = {
       width: 380,
       height: 350,
-      thickness: 100,
+      thickness: 70,
     };
     const radius = Math.min(circle.width, circle.height) / 2;
     const svg = d3
@@ -80,6 +80,18 @@ export default function PieChart({ resultData, message }) {
       .on("mouseover", (e, d) => {
         select(e.currentTarget).attr("fill", "red");
 
+        g.append("text")
+          .attr("class", "name-text")
+          .text(`${d.data.name}`)
+          .attr("text-anchor", "middle")
+          .attr("dy", "-10px");
+
+        g.append("text")
+          .attr("class", "value-text")
+          .text(`${Math.round((d.data.count / countSum) * 100)}%`)
+          .attr("text-anchor", "middle")
+          .attr("dy", "10px");
+
         tooltip
           .style("visibility", "visible")
           .text(
@@ -93,6 +105,9 @@ export default function PieChart({ resultData, message }) {
       })
       .on("mouseout", (e, d) => {
         select(e.currentTarget).attr("fill", color(d.value));
+
+        d3.selectAll(".name-text").remove();
+        d3.selectAll(".value-text").remove();
 
         tooltip.style("visibility", "hidden");
       });
