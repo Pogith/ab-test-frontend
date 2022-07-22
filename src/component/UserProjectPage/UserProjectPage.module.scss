@@ -1,5 +1,6 @@
 $blue-color: rgb(52, 52, 186);
 $white-color: white;
+$black-color: black;
 
 @mixin link-decoration($text-color, $background-color) {
   position: relative;
@@ -66,18 +67,18 @@ $white-color: white;
   &__item {
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     width: 80%;
     margin: 30px auto;
-    padding: 30px 0;
+    padding: 30px 30px;
     font-size: 25px;
     background-color: rgba(255, 255, 255, 0.9);
-    border: 1px solid black;
+    border: 1px solid $black-color;
     border-radius: 10px;
     box-shadow: 10px 5px 5px 3px rgba(0, 0, 0, 0.4);
 
     &__url {
-      @include link-decoration(black, blue);
+      @include link-decoration($black-color, $blue-color);
     }
 
     &__wrapper {
@@ -95,9 +96,18 @@ $white-color: white;
       @include link-decoration($blue-color, $blue-color);
     }
 
-    &__button {
-      @include button-decoration(10px 20px, 20px, 10px, $white-color, red);
-      color: red;
+    &__deletebutton {
+      padding: 10px 0;
+      color: $black-color;
+      cursor: pointer;
+      border: none;
+      border-radius: 10px;
+      background-color: transparent;
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        color: red;
+      }
     }
   }
 
@@ -113,7 +123,7 @@ $white-color: white;
     border-radius: 10px;
   }
 
-  &__button {
+  &__registerbutton {
     @include button-decoration(5px 10px, 20px, 20px, $white-color, gray);
   }
 
