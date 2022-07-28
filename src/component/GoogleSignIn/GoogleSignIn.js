@@ -20,7 +20,7 @@ export default function GoogleSignIn() {
     setToken(localStorage.getItem("token"));
   }, []);
 
-  const handleSignIn = () => {
+  const handleSignInButtonClick = () => {
     signInWithGoogle();
 
     auth.onAuthStateChanged(async (data) => {
@@ -52,7 +52,7 @@ export default function GoogleSignIn() {
     });
   };
 
-  const handleSignOut = () => {
+  const handleSignOutButtonClick = () => {
     signOut();
 
     setUser(null);
@@ -67,11 +67,11 @@ export default function GoogleSignIn() {
   return (
     <div>
       {!localStorage.getItem("token") ? (
-        <button className={cx("login_button")} onClick={handleSignIn}>
+        <button className={cx("login_button")} onClick={handleSignInButtonClick}>
           Sign In
         </button>
       ) : (
-        <button className={cx("login_button")} onClick={handleSignOut}>
+        <button className={cx("login_button")} onClick={handleSignOutButtonClick}>
           Sign Out
         </button>
       )}
