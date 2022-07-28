@@ -1,14 +1,16 @@
+$white-color: white;
+
 .login_button {
   position: relative;
   padding: 10px 20px;
   font-size: 20px;
-  color: white;
+  color: $white-color;
   cursor: pointer;
   border: none;
   background-color: rgb(48, 44, 44);
 
   &:hover {
-    color: white;
+    color: $white-color;
   }
 
   &::before {
@@ -19,7 +21,7 @@
     height: 5px;
     left: 0;
     bottom: 0;
-    background-color: white;
+    background-color: $white-color;
     transform: scale(0);
     transition: transform 0.3s ease-in-out;
   }
