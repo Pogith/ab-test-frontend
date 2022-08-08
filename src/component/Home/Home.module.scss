@@ -74,16 +74,6 @@ $border-style: 2px solid white;
   }
 }
 
-@media screen and (max-width: 600px) {
-  .home {
-    &__project__item,
-    &__userpage__item,
-    &__message {
-      font-size: 30px;
-    }
-  }
-}
-
 @media screen and (max-width: 700px) {
   .home {
     flex-direction: column;
@@ -92,6 +82,16 @@ $border-style: 2px solid white;
 
     &__content {
       font-size: 15px;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .home {
+    &__project__item,
+    &__userpage__item,
+    &__message {
+      font-size: 30px;
     }
   }
 }

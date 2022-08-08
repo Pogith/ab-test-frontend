@@ -32,13 +32,6 @@ $white-color: white;
     font-weight: 900;
   }
 
-  &__loader {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-
   &__list {
     display: flex;
     align-items: center;
@@ -64,6 +57,11 @@ $white-color: white;
         color: #046053;
       }
     }
+  }
+
+  &__result {
+    @include button-decoration(10px, 10px, 20px, 20px, $white-color, transparent);
+    background-color: transparent;
 
     &__linkicon {
       color: blue;
@@ -73,11 +71,6 @@ $white-color: white;
         color: red;
       }
     }
-  }
-
-  &__button {
-    @include button-decoration(10px, 10px, 20px, 20px, $white-color, transparent);
-    background-color: transparent;
   }
 
   &__deletebutton {
