@@ -56,9 +56,9 @@ export default function UserPage() {
               <h1>{projectData.projectName}</h1>
             </Link>
             <div>
-              <button className={cx("project__button")}>
+              <button className={cx("project__result")}>
                 <Link
-                  className={cx("project__list__linkicon")}
+                  className={cx("project__result__linkicon")}
                   to={`/user/project/result/${projectData._id}`}
                 >
                   <BsGraphUp size={"40px"} />
