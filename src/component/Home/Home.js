@@ -5,7 +5,6 @@ import classNames from "classnames/bind";
 
 import { firebaseUserState, tokenState } from "../../recoil/atom";
 import styles from "./Home.module.scss";
-import GoogleSignIn from "../GoogleSignIn/GoogleSignIn";
 
 const cx = classNames.bind(styles);
 
