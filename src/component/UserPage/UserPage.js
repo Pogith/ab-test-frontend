@@ -40,12 +40,20 @@ export default function UserPage() {
     }
   };
 
+  const mockProjectsData = Array.from({length: 3}, (_, i) => (
+    {
+      _id: i,
+      projectName: `projectName ${i}`
+    }
+  ));
+
   return (
     <div className={cx("project")}>
       <div className={cx("project__title")}>
         <h1>Project List</h1>
       </div>
-      {projects?.data.map((projectData, index) => {
+      {/* {projects?.data.map((projectData, index) => { */}
+      {mockProjectsData?.map((projectData, index) => {
         return (
           <div className={cx("project__list")} key={projectData._id}>
             <h1>Project No.{index + 1}</h1>

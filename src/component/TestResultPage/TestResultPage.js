@@ -40,8 +40,34 @@ export default function TestResultPage() {
     fetchResultData();
   }, []);
 
-  const { browserResults, agentResults } = getUserAgentResult(visitResults);
-  const { timeResults, dateResults } = getTimeDataResult(visitResults);
+  const mockTestResults = Array.from({length: 5}, (_, i) => (
+    {
+      uniqId: i,
+      projectId: i,
+      visitedIds: [Array.from({length: 5 + i}, (_, i) => i)],
+      visitCount : i,
+      revisitCount: i,
+      clickEvent: [{}],
+      url: 'https://test.com'
+    }
+  ));
+
+  const mockVisitResults = Array.from({length: 5}, (_, i) => (
+    {
+      visited_at: new Date(),
+      left_at: new Date(),
+      useragent: [{
+        mobile: Math.random < 0.5 ? true : false,
+        desktop:  Math.random < 0.5 ? true : false,
+        browser: Math.random < 0.5 ? "naver" : 'google'
+      }]
+    }
+  ));
+
+  const { browserResults, agentResults } = getUserAgentResult(mockVisitResults);
+  const { timeResults, dateResults } = getTimeDataResult(mockVisitResults);
+  // const { browserResults, agentResults } = getUserAgentResult(visitResults);
+  // const { timeResults, dateResults } = getTimeDataResult(visitResults);
 
   return (
     <div>
@@ -49,7 +75,24 @@ export default function TestResultPage() {
         <button onClick={() => navigate(`/user/${userUid}`)}>Back</button>
       </div>
       <div className={cx("chart__container")}>
-        {testResults && visitResults && (
+        {/* NOTE - 서버 중단으로 인한 mockData 적용 */}
+        {mockTestResults && mockVisitResults && (
+          <>
+            <div className={cx("chart__container__top")}>
+              <BarChart resultData={mockTestResults} />
+              <RevisitBarChart resultData={mockTestResults} />
+            </div>
+            <div className={cx("chart__container__middle")} >
+              <PieChart resultData={browserResults} message={"Useragent"} />
+              <PieChart resultData={agentResults} message={"Device"} />
+            </div>
+            <div className={cx("chart__container__bottom")}>
+              <TimeChart resultData={timeResults} />
+              <DateChart resultData={dateResults} />
+            </div>
+          </>
+        )}
+        {/* {testResults && visitResults && (
           <>
             <div className={cx("chart__container__top")}>
               <BarChart resultData={testResults} />
@@ -62,7 +105,7 @@ export default function TestResultPage() {
               <DateChart resultData={dateResults} />
             </div>
           </>
-        )}
+        )} */}
       </div>
     </div>
   );
