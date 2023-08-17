@@ -31,6 +31,12 @@ $white-color: white;
       justify-content: space-evenly;
     }
 
+    &__middle {
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+    }
+
     &__bottom {
       display: flex;
       align-items: center;
